@@ -27,9 +27,14 @@
 	}
 
 	//other package
-	2 Relationships hasMany 
+	1 Relationship hasMany 
 	{
 		Documents
+		Works
+	}
+
+	1 Relationship belongsToMany 
+	{
 		Works
 	}
 
@@ -113,7 +118,7 @@ class Person extends BaseModel {
 	/* ------------------------------------------------------------------- RELATIONSHIP IN DOCUMENT PACKAGE -------------------------------------------------------------------*/
 	public function Documents()
 	{
-		return $this->hasMany('ThunderID\Document\Models\Document');
+		return $this->belongsToMany('ThunderID\Document\Models\Document', 'persons_documents', 'person_id', 'document_id');
 	}
 
 	/* ------------------------------------------------------------------- RELATIONSHIP IN WORK PACKAGE -------------------------------------------------------------------*/
