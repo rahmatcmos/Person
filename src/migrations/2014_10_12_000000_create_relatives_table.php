@@ -16,7 +16,7 @@ class CreateRelativesTable extends Migration {
 			$table->increments('id');
 			$table->integer('person_id')->unsigned()->index();
 			$table->integer('family_id')->unsigned()->index();
-			$table->enum('relationship', ['father', 'mother', 'husband', 'wife', 'son', 'daughter']);
+			$table->enum('relationship', ['spouse', 'parent', 'child', 'partner']);
 			$table->timestamps();
 			$table->softDeletes();
 		});
