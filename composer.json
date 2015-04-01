@@ -19,5 +19,5 @@
             "ThunderID\\Person": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev-master"
 }
