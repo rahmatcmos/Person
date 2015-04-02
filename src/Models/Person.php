@@ -27,14 +27,9 @@
 	}
 
 	//other package
-	1 Relationship hasMany 
+	2 Relationships belongsToMany 
 	{
 		Documents
-		Works
-	}
-
-	1 Relationship belongsToMany 
-	{
 		Works
 	}
 
@@ -111,7 +106,7 @@ class Person extends BaseModel {
 
 	public function Relatives()
 	{
-		return $this->belongsToMany('ThunderID\Person\Models\Person', 'relatives', 'person_id', 'family_id')
+		return $this->belongsToMany('ThunderID\Person\Models\Person', 'relatives', 'person_id', 'relative_id')
 				->withPivot('relationship','occupation');
 	}
 
