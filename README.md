@@ -22,11 +22,11 @@ run
 
 migration
 ```
-  php artisan migrate --path = vendor/thunderid/person/src/migrations
+  php artisan migrate --path=vendor/thunderid/person/src/migrations
 ```
 
 seed
 ```
-  php artisan db:seed --clsas = ThunderID\\Person\\seeds\DatabaseSeeder
+  php artisan db:seed --clsas=ThunderID\\Person\\seeds\\DatabaseSeeder
 ```
 
