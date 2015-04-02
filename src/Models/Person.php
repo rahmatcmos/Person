@@ -124,7 +124,7 @@ class Person extends BaseModel {
 	/* ------------------------------------------------------------------- RELATIONSHIP IN WORK PACKAGE -------------------------------------------------------------------*/
 	public function Works()
 	{
-		return $this->hasMany('ThunderID\Work\Models\Work');
+		return $this->belongsToMany('ThunderID\Organisation\Models\OrganisationChart', 'works', 'person_id', 'organisation_chart_id');
 	}
 
 	/* ------------------------------------------------------------------- RELATIONSHIP IN CONTACT PACKAGE -------------------------------------------------------------------*/
