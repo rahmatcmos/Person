@@ -22,7 +22,7 @@ run
 
 migration
 ```
-  php artisan migrate:make --path = vendor/thunderid/person/src/migrations
+  php artisan migrate --path = vendor/thunderid/person/src/migrations
 ```
 
 seed
