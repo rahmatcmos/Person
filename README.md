@@ -30,7 +30,12 @@ migration
   php artisan migrate --path=vendor/thunderid/person/src/migrations
 ```
 
-seed
+seed (run in mac or linux)
 ```
   php artisan db:seed --class=ThunderID\\Person\\seeds\\DatabaseSeeder
+```
+
+seed (run in windows)
+```
+  php artisan db:seed --class='\ThunderID\Person\seeds\DatabaseSeeder'
 ```
