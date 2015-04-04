@@ -1,5 +1,6 @@
 <?php namespace ThunderID\Person\Models;
 
+
 /* ----------------------------------------------------------------------
  * Document Model:
  * 	ID 								: Auto Increment, Integer, PK
@@ -17,7 +18,8 @@
  *	created_at						: Timestamp
  * 	updated_at						: Timestamp
  * 	deleted_at						: Timestamp
- * 
+ * ---------------------------------------------------------------------- */
+
 /* ----------------------------------------------------------------------
  * Document Relationship :
  * 	//this package
@@ -37,12 +39,16 @@
 	{
 		Contacts
 	}
-
  * ---------------------------------------------------------------------- */
 
 use Str, Validator, DateTime, Exception;
 
 class Person extends BaseModel {
+
+	use \ThunderID\Person\Models\Relations\BelongsToMany\HasRelativesTrait;
+	use \ThunderID\Person\Models\Relations\BelongsToMany\HasDocumentsTrait;
+	use \ThunderID\Person\Models\Relations\BelongsToMany\HasWorksTrait;
+	use \ThunderID\Person\Models\Relations\MorphMany\HasContactsTrait;
 
 	public 		$timestamps 		= true;
 
@@ -100,32 +106,6 @@ class Person extends BaseModel {
 				return false;
 			}
 		});
-	}
-
-	/* ------------------------------------------------------------------- RELATIONSHIP IN PERSON PACKAGE -------------------------------------------------------------------*/
-
-	public function Relatives()
-	{
-		return $this->belongsToMany('ThunderID\Person\Models\Person', 'relatives', 'person_id', 'relative_id')
-				->withPivot('relationship','occupation');
-	}
-
-	/* ------------------------------------------------------------------- RELATIONSHIP IN DOCUMENT PACKAGE -------------------------------------------------------------------*/
-	public function Documents()
-	{
-		return $this->belongsToMany('ThunderID\Document\Models\Document', 'persons_documents', 'person_id', 'document_id');
-	}
-
-	/* ------------------------------------------------------------------- RELATIONSHIP IN WORK PACKAGE -------------------------------------------------------------------*/
-	public function Works()
-	{
-		return $this->belongsToMany('ThunderID\Organisation\Models\OrganisationChart', 'works', 'person_id', 'organisation_chart_id');
-	}
-
-	/* ------------------------------------------------------------------- RELATIONSHIP IN CONTACT PACKAGE -------------------------------------------------------------------*/
-	public function Contacts()
-	{
-		return $this->morphMany('ThunderID\Contact\Models\Contact');
 	}
 
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/

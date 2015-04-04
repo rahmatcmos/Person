@@ -20,6 +20,11 @@ run
 
 # Usage
 
+service provider
+```
+'ThunderID\Person\PersonServiceProvider'
+```
+
 migration
 ```
   php artisan migrate --path=vendor/thunderid/person/src/migrations
@@ -28,6 +33,4 @@ migration
 seed
 ```
   php artisan db:seed --class=ThunderID\\Person\\seeds\\DatabaseSeeder
-
 ```
-
