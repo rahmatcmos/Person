@@ -17,7 +17,7 @@ trait HasContactsTrait {
 	/* ------------------------------------------------------------------- RELATIONSHIP IN CONTACT PACKAGE -------------------------------------------------------------------*/
 	public function Contacts()
 	{
-		return $this->morphMany('ThunderID\Contact\Models\Contact');
+		return $this->morphMany('ThunderID\Contact\Models\Contact', 'person');
 	}
 
 }

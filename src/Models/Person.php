@@ -80,6 +80,15 @@ class Person extends BaseModel {
 										'marital_status'				=> 'required|in:single,married,divorced,widowed',
 										'nationality'					=> 'required|max:255',
 									];
+	public $searchable 				= 	[
+											'firstname' => 'FirstName', 
+											'lastname' => 'LastName', 
+											'prefixtitle' => 'PrefixTitle', 
+											'suffixtitle' => 'SuffixTitle', 
+											'dateofbirth' => 'DateOfBirth', 
+											'maritalstatus' => 'MaritalStatus'
+										];
+	public $sortable 				= ['first_name', 'last_name', 'prefix_title', 'suffix_title', 'date_of_birth', 'marital_status', 'created_at'];
 
 	/* ---------------------------------------------------------------------------- CONSTRUCT ----------------------------------------------------------------------------*/
 	/**
@@ -111,10 +120,40 @@ class Person extends BaseModel {
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
 	
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
-	
+
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
 	
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
+
+	public function scopeFirstName($query, $variable)
+	{
+		return $query->where('first_name', 'like' ,'%'.$variable.'%');
+	}
+
+	public function scopeLastName($query, $variable)
+	{
+		return $query->where('last_name', 'like' ,'%'.$variable.'%');
+	}
+
+	public function scopePrefixTitle($query, $variable)
+	{
+		return $query->where('prefix_title', 'like' ,'%'.$variable.'%');
+	}
+
+	public function scopeSuffixTitle($query, $variable)
+	{
+		return $query->where('suffix_title', 'like' ,'%'.$variable.'%');
+	}
+
+	public function scopeDateOfBirth($query, $variable)
+	{
+		return $query->where('date_of_birth', 'like' ,'%'.$variable.'%');
+	}
+
+	public function scopeMaritalStatus($query, $variable)
+	{
+		return $query->where('marital_status', 'like' ,'%'.$variable.'%');
+	}
 }
