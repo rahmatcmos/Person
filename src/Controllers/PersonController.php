@@ -22,7 +22,7 @@ class PersonController extends Controller {
 	{
 		$per_page 								= 15;
 	
-		$contents 								= $this->dispatch(new Getting(new Person,['FirstName' => ''], ['created_at' => 'asc'] ,(int)$page, $per_page));
+		$contents 								= $this->dispatch(new Getting(new Person,['WithAttributes' => ['contacts', 'relatives', 'works', 'documents']], ['created_at' => 'asc'] ,(int)$page, $per_page));
 		
 		return $contents;
 	}

@@ -87,7 +87,8 @@ class Person extends BaseModel {
 											'prefixtitle' 				=> 'PrefixTitle', 
 											'suffixtitle' 				=> 'SuffixTitle', 
 											'dateofbirth' 				=> 'DateOfBirth', 
-											'maritalstatus' 			=> 'MaritalStatus'
+											'maritalstatus' 			=> 'MaritalStatus',
+											'withattributes' 			=> 'WithAttributes'
 										];
 	public $sortable 				= ['first_name', 'last_name', 'prefix_title', 'suffix_title', 'date_of_birth', 'marital_status', 'created_at'];
 
@@ -173,5 +174,14 @@ class Person extends BaseModel {
 	public function scopeMaritalStatus($query, $variable)
 	{
 		return $query->where('marital_status', 'like' ,'%'.$variable.'%');
+	}
+
+	public function scopeWithAttributes($query, $variable)
+	{
+		if(!is_array($variable))
+		{
+			$variable 			= [$variable];
+		}
+		return $query->with($variable);
 	}
 }
