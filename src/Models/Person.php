@@ -81,12 +81,13 @@ class Person extends BaseModel {
 										'nationality'					=> 'required|max:255',
 									];
 	public $searchable 				= 	[
-											'firstname' => 'FirstName', 
-											'lastname' => 'LastName', 
-											'prefixtitle' => 'PrefixTitle', 
-											'suffixtitle' => 'SuffixTitle', 
-											'dateofbirth' => 'DateOfBirth', 
-											'maritalstatus' => 'MaritalStatus'
+											'id' 						=> 'ID', 
+											'firstname' 				=> 'FirstName', 
+											'lastname' 					=> 'LastName', 
+											'prefixtitle' 				=> 'PrefixTitle', 
+											'suffixtitle' 				=> 'SuffixTitle', 
+											'dateofbirth' 				=> 'DateOfBirth', 
+											'maritalstatus' 			=> 'MaritalStatus'
 										];
 	public $sortable 				= ['first_name', 'last_name', 'prefix_title', 'suffix_title', 'date_of_birth', 'marital_status', 'created_at'];
 
@@ -117,6 +118,18 @@ class Person extends BaseModel {
 		});
 	}
 
+	/* ---------------------------------------------------------------------------- ERRORS ----------------------------------------------------------------------------*/
+	/**
+	 * return errors
+	 *
+	 * @return MessageBag
+	 * @author 
+	 **/
+	function getError()
+	{
+		return $this->errors;
+	}
+
 	/* ---------------------------------------------------------------------------- QUERY BUILDER ---------------------------------------------------------------------------*/
 	
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
@@ -126,6 +139,11 @@ class Person extends BaseModel {
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
+
+	public function scopeID($query, $variable)
+	{
+		return $query->where('id', $variable);
+	}
 
 	public function scopeFirstName($query, $variable)
 	{
