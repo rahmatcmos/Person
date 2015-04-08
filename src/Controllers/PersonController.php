@@ -5,6 +5,7 @@ use \ThunderID\Person\Models\Person;
 use \ThunderID\Commoquent\Getting;
 use \ThunderID\Commoquent\Saving;
 use \ThunderID\Commoquent\Deleting;
+use Input;
 
 class PersonController extends Controller {
 
@@ -20,9 +21,9 @@ class PersonController extends Controller {
 	 */
 	function index($page = 1)
 	{
-		$per_page 								= 15;
+		$per_page 								= 12;
 	
-		$contents 								= $this->dispatch(new Getting(new Person,['WithAttributes' => ['contacts', 'relatives', 'works', 'documents']], ['created_at' => 'asc'] ,(int)$page, $per_page));
+		$contents 								= $this->dispatch(new Getting(new Person, Input::get('search'), Input::get('sort') ,(int)$page, $per_page));
 		
 		return $contents;
 	}
@@ -47,7 +48,7 @@ class PersonController extends Controller {
 	 */
 	public function show($id)
 	{
-		$content 						= $this->dispatch(new Getting(new Person,['ID' => $id], ['created_at' => 'asc'] ,1, 1));
+		$content 						= $this->dispatch(new Getting(new Person,['ID' => $id, 'WithAttributes' => ['contacts', 'relatives', 'works', 'documents']], ['created_at' => 'asc'] ,1, 1));
 		
 		return $content;
 	}

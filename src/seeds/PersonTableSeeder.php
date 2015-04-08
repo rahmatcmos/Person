@@ -13,6 +13,8 @@ class PersonTableSeeder extends Seeder
 		$gender 									= ['male', 'female'];
 		$marital_status 							= ['single', 'married', 'divorced', 'widowed'];
 		$nationality								= ['WNI', 'WNA'];
+		$prefix 									= ['Prof.', 'Dr.', 'Ir.'];
+		$suffix 									= ['MT.', 'MSc.', 'BSc.', 'MSi.', 'BSi.', 'SE.', 'PhD.', 'SH.', 'SKom.', 'ST.', 'BA.'];
 		try
 		{
 			foreach(range(1, 77) as $index)
@@ -23,8 +25,8 @@ class PersonTableSeeder extends Seeder
 					'middle_name'					=>$faker->firstName,
 					'last_name'						=>$faker->lastName,
 					'nick_name'						=>$faker->firstName,
-					'prefix_title'					=>$faker->word,
-					'suffix_title'					=>$faker->word,
+					'prefix_title'					=>$prefix[rand(0,2)],
+					'suffix_title'					=>$suffix[rand(0,10)],
 					'place_of_birth'				=>$faker->city,
 					'date_of_birth' 				=>$faker->date($format = 'Y-m-d', $max = 'now'), 
 					'gender' 						=>$gender[rand ( 0 , 1 )],
