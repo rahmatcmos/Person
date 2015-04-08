@@ -49,6 +49,7 @@ class Person extends BaseModel {
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasDocumentsTrait;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasWorksTrait;
 	use \ThunderID\Person\Models\Relations\MorphMany\HasContactsTrait;
+	use \ThunderID\Person\Models\Relations\HasOne\HasAuthenticationTrait;
 
 	public 		$timestamps 		= true;
 

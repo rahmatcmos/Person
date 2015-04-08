@@ -48,7 +48,7 @@ class PersonController extends Controller {
 	 */
 	public function show($id)
 	{
-		$content 						= $this->dispatch(new Getting(new Person,['ID' => $id, 'WithAttributes' => ['contacts', 'relatives', 'works', 'documents']], ['created_at' => 'asc'] ,1, 1));
+		$content 						= $this->dispatch(new Getting(new Person,['ID' => $id, 'WithAttributes' => ['contacts', 'relatives', 'works', 'works.branch', 'works.branch.organisation', 'documents']], ['created_at' => 'asc'] ,1, 1));
 		
 		return $content;
 	}
