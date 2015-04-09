@@ -2,6 +2,9 @@
 
 use \App\Http\Controllers\Controller;
 use \ThunderID\Person\Models\Person;
+use \ThunderID\Document\Models\PersonDocument;
+use \ThunderID\Work\Models\Work;
+use \ThunderID\Contact\Models\Contact;
 use \ThunderID\Commoquent\Getting;
 use \ThunderID\Commoquent\Saving;
 use \ThunderID\Commoquent\Deleting;
@@ -48,7 +51,7 @@ class PersonController extends Controller {
 	 */
 	public function show($id)
 	{
-		$content 						= $this->dispatch(new Getting(new Person,['ID' => $id, 'WithAttributes' => ['contacts', 'relatives', 'works', 'works.branch', 'works.branch.organisation', 'documents']], ['created_at' => 'asc'] ,1, 1));
+		$content 								= $this->dispatch(new Getting(new Person,['ID' => $id, 'WithAttributes' => ['contacts', 'relatives', 'works', 'works.branch', 'works.branch.organisation', 'documents']], ['created_at' => 'asc'] ,1, 1));
 		
 		return $content;
 	}
@@ -61,7 +64,7 @@ class PersonController extends Controller {
 	 */
 	public function update($id, $attributes = null)
 	{
-		$content 							= $this->dispatch(new Saving(new Person, $attributes, $id));
+		$content 								= $this->dispatch(new Saving(new Person, $attributes, $id));
 
 		return $content;
 	}
@@ -74,8 +77,62 @@ class PersonController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$content 						= $this->dispatch(new Deleting(new Person, $id));
+		$content 								= $this->dispatch(new Deleting(new Person, $id));
 	
 		return $content;
+	}
+
+
+	/**
+	 * Display the specified resource with weak entitites.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function documents($person_id, $id, $page = 1)
+	{
+		$per_page 								= 12;
+	
+		$search 								= Input::get('search');
+		$search['Person']						= $person_id;
+		$search['Document']						= $id;
+		$contents 								= $this->dispatch(new Getting(new PersonDocument, $search, Input::get('sort') ,(int)$page, $per_page));
+
+		return $contents;
+	}
+
+	public function document($person_id, $doc_id, $id)
+	{
+		$search['Person']						= $person_id;
+		$search['Document']						= $doc_id;
+		$search['ID']							= $id;
+
+		$contents 								= $this->dispatch(new Getting(new PersonDocument, $search, ['created_at' => 'desc'] ,1, 1));
+		
+		return $contents;
+	}
+
+	public function works($person_id, $page = 1)
+	{
+		$per_page 								= 12;
+	
+		$search 								= Input::get('search');
+		$search['Person']						= $person_id;
+
+		$contents 								= $this->dispatch(new Getting(new Work, $search, Input::get('sort') ,(int)$page, $per_page));
+		
+		return $contents;
+	}
+
+	public function contacts($person_id, $page = 1)
+	{
+		$per_page 								= 12;
+	
+		$search 								= Input::get('search');
+		$search['Person']						= $person_id;
+
+		$contents 								= $this->dispatch(new Getting(new Contact, $search, Input::get('sort') ,(int)$page, $per_page));
+		
+		return $contents;
 	}
 }
