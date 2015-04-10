@@ -13,8 +13,9 @@
  * 	place_of_birth 					: Varchar, 255, Required
  * 	date_of_birth 					: Date, Y-m-d, Required
  * 	gender 							: Enum Female or Male, Required
- *	marital_status					: Enum Single or Married or Divorced or Widowed, Required
- *	nationality						: Varchar, 255, Required
+ *	username						: Varchar, 255
+ *	password						: Varchar, 255
+ *	avatar							: 
  *	created_at						: Timestamp
  * 	updated_at						: Timestamp
  * 	deleted_at						: Timestamp
@@ -70,8 +71,9 @@ class Person extends BaseModel {
 										'place_of_birth' 				,
 										'date_of_birth' 				,
 										'gender' 						,
-										'marital_status'				,
-										'nationality'					,
+										'username'						,
+										'password'						,
+										'avatar'						,
 									];
 	protected	$dates 				= ['created_at', 'updated_at', 'deleted_at'];
 	protected 	$rules				= [
@@ -79,13 +81,13 @@ class Person extends BaseModel {
 										'middle_name' 					=> 'max:255',
 										'last_name' 					=> 'max:255',
 										'nick_name' 					=> 'required|max:255',
-										'prefix_title' 					=> 'required|max:255',
-										'suffix_title' 					=> 'required|max:255',
+										'prefix_title' 					=> 'max:255',
+										'suffix_title' 					=> 'max:255',
 										'place_of_birth' 				=> 'required|max:255',
 										'date_of_birth' 				=> 'required|date_format:"Y-m-d"',
 										'gender' 						=> 'required|in:female,male',
-										'marital_status'				=> 'required|in:single,married,divorced,widowed',
-										'nationality'					=> 'required|max:255',
+										'username'						=> 'max:255',
+										'password'						=> 'max:255',
 									];
 	public $searchable 				= 	[
 											'id' 						=> 'ID', 
@@ -95,9 +97,10 @@ class Person extends BaseModel {
 											'suffixtitle' 				=> 'SuffixTitle', 
 											'dateofbirth' 				=> 'DateOfBirth', 
 											'maritalstatus' 			=> 'MaritalStatus',
-											'withattributes' 			=> 'WithAttributes'
+											'withattributes' 			=> 'WithAttributes',
+											'currentwork' 				=> 'CurrentWork'
 										];
-	public $sortable 				= ['first_name', 'last_name', 'prefix_title', 'suffix_title', 'date_of_birth', 'marital_status', 'created_at'];
+	public $sortable 				= ['first_name', 'last_name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at'];
 
 	/* ---------------------------------------------------------------------------- CONSTRUCT ----------------------------------------------------------------------------*/
 	/**
@@ -189,6 +192,7 @@ class Person extends BaseModel {
 		{
 			$variable 			= [$variable];
 		}
+
 		return $query->with($variable);
 	}
 }

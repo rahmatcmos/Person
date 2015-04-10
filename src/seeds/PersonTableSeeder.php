@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use ThunderID\Person\Models\Person;
-use \Faker;
+use \Faker, Hash;
 
 class PersonTableSeeder extends Seeder
 {
@@ -11,8 +11,6 @@ class PersonTableSeeder extends Seeder
 	{
 		$faker 										= Faker::create();
 		$gender 									= ['male', 'female'];
-		$marital_status 							= ['single', 'married', 'divorced', 'widowed'];
-		$nationality								= ['WNI', 'WNA'];
 		$prefix 									= ['Prof.', 'Dr.', 'Ir.'];
 		$suffix 									= ['MT.', 'MSc.', 'BSc.', 'MSi.', 'BSi.', 'SE.', 'PhD.', 'SH.', 'SKom.', 'ST.', 'BA.'];
 		try
@@ -30,8 +28,8 @@ class PersonTableSeeder extends Seeder
 					'place_of_birth'				=>$faker->city,
 					'date_of_birth' 				=>$faker->date($format = 'Y-m-d', $max = 'now'), 
 					'gender' 						=>$gender[rand ( 0 , 1 )],
-					'marital_status'				=>$marital_status[rand ( 0 , 3 )],
-					'nationality'					=>$nationality[rand(0,1)],
+					'username'						=>'user'.$index,
+					'password'						=>Hash::make('admin'),
 				]);
 
 				if (!$data->save())
