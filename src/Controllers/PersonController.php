@@ -59,7 +59,7 @@ class PersonController extends Controller {
 			return $content;
 		}
 
-		if(Input::get('attributes')['works'])
+		if(isset(Input::get('attributes')['works']))
 		{
 			foreach (Input::get('attributes')['works'] as $key => $value) 
 			{
@@ -73,7 +73,7 @@ class PersonController extends Controller {
 			}
 		}
 
-		if(Input::get('attributes')['documents'])
+		if(isset(Input::get('attributes')['documents']))
 		{
 			foreach (Input::get('attributes')['documents'] as $key => $value) 
 			{
@@ -87,7 +87,7 @@ class PersonController extends Controller {
 			}
 		}
 
-		if(Input::get('attributes')['relatives'])
+		if(isset(Input::get('attributes')['relatives']))
 		{
 			foreach (Input::get('attributes')['relatives'] as $key => $value) 
 			{
@@ -97,7 +97,7 @@ class PersonController extends Controller {
 				}
 				else
 				{
-					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, null, new Person, $is_success->data->id));
+					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, null, new Person, $is_success->data->id, $value['relationship']));
 				}
 				$is_success_2 				= json_decode($saved_relative);
 				if(!$is_success_2->meta->success)
@@ -108,7 +108,7 @@ class PersonController extends Controller {
 			}
 		}
 
-		if(Input::get('attributes')['contact'])
+		if(isset(Input::get('attributes')['contact']))
 		{
 			foreach (Input::get('attributes')['contact'] as $key0 => $value0) 
 			{
