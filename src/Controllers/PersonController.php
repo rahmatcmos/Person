@@ -8,7 +8,7 @@ use \ThunderID\Contact\Models\Contact;
 use \ThunderID\Commoquent\Getting;
 use \ThunderID\Commoquent\Saving;
 use \ThunderID\Commoquent\Deleting;
-use Input, Hash;
+use Input, Hash, DB;
 
 class PersonController extends Controller {
 
@@ -40,9 +40,54 @@ class PersonController extends Controller {
 	{
 		$id 									= Input::get('id');
 
-		$attributes['password']					= Hash::make(Input::get('attributes')['password']);
+		if(Input::has('attributes')['password'])
+		{
+			$attributes['password']				= Hash::make(Input::get('attributes')['password']);
+		}
 
+		$id 									= Input::get('id');
+		$attributes 							= Input::get('attributes')['person'];
+
+		DB::beginTransaction();
+		
 		$content 								= $this->dispatch(new Saving(new Person, $attributes, $id));
+
+		$is_success 							= json_decode($content);
+		if(!$is_success->meta->success)
+		{
+			DB::rollback();
+			return $content;
+		}
+
+		if(Input::get('attributes')['contact'])
+		{
+			foreach (Input::get('attributes')['contact'] as $key0 => $value0) 
+			{
+				foreach (Input::get('attributes')['contact'][$key0] as $key => $value) 
+				{
+					$i 								= 0;
+					if($value!='')
+					{
+						$contact['item']			= $key0;
+						$contact['value']			= $value;
+						if($i==0)
+						{
+							$contact['is_default']	= true;
+							$i 						= 1;
+						}
+						$saved_contact 				= $this->dispatch(new Saving(new Contact, $contact, null, new Person, $is_success->data->id));
+						$is_success_2 				= json_decode($saved_contact);
+						if(!$is_success_2->meta->success)
+						{
+							DB::rollback();
+							return $saved_contact;
+						}
+					}
+				}
+			}
+		}
+
+		DB::commit();
 
 		return $content;
 	}
