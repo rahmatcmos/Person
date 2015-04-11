@@ -93,7 +93,7 @@ class PersonController extends Controller {
 			{
 				if(isset($value['id']))
 				{
-					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, $value['id'], new Person, $is_success->data->id));
+					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, $value['id'], new Person, $is_success->data->id, $value['relationship']));
 				}
 				else
 				{
