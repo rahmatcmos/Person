@@ -95,8 +95,10 @@ class Person extends BaseModel {
 											'lastname' 					=> 'LastName', 
 											'prefixtitle' 				=> 'PrefixTitle', 
 											'suffixtitle' 				=> 'SuffixTitle', 
+											'orlastname' 				=> 'OrLastName', 
+											'orprefixtitle' 			=> 'OrPrefixTitle', 
+											'orsuffixtitle' 			=> 'OrSuffixTitle', 
 											'dateofbirth' 				=> 'DateOfBirth', 
-											'maritalstatus' 			=> 'MaritalStatus',
 											'withattributes' 			=> 'WithAttributes',
 											'currentwork' 				=> 'CurrentWork'
 										];
@@ -176,14 +178,24 @@ class Person extends BaseModel {
 		return $query->where('suffix_title', 'like' ,'%'.$variable.'%');
 	}
 
+	public function scopeOrLastName($query, $variable)
+	{
+		return $query->orwhere('last_name', 'like' ,'%'.$variable.'%');
+	}
+
+	public function scopeOrPrefixTitle($query, $variable)
+	{
+		return $query->orwhere('prefix_title', 'like' ,'%'.$variable.'%');
+	}
+
+	public function scopeOrSuffixTitle($query, $variable)
+	{
+		return $query->orwhere('suffix_title', 'like' ,'%'.$variable.'%');
+	}
+
 	public function scopeDateOfBirth($query, $variable)
 	{
 		return $query->where('date_of_birth', 'like' ,'%'.$variable.'%');
-	}
-
-	public function scopeMaritalStatus($query, $variable)
-	{
-		return $query->where('marital_status', 'like' ,'%'.$variable.'%');
 	}
 
 	public function scopeWithAttributes($query, $variable)

@@ -8,7 +8,7 @@ use \ThunderID\Contact\Models\Contact;
 use \ThunderID\Commoquent\Getting;
 use \ThunderID\Commoquent\Saving;
 use \ThunderID\Commoquent\Deleting;
-use Input;
+use Input, Hash;
 
 class PersonController extends Controller {
 
@@ -36,8 +36,12 @@ class PersonController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store($id = null, $attributes = null)
+	public function store()
 	{
+		$id 									= Input::get('id');
+
+		$attributes['password']					= Hash::make(Input::get('attributes')['password']);
+
 		$content 								= $this->dispatch(new Saving(new Person, $attributes, $id));
 
 		return $content;
