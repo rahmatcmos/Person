@@ -4,7 +4,6 @@ use \App\Http\Controllers\Controller;
 use \ThunderID\Person\Models\Person;
 use \ThunderID\Document\Models\PersonDocument;
 use \ThunderID\Work\Models\Work;
-use \ThunderID\Document\Models\PersonDocument;
 use \ThunderID\Contact\Models\Contact;
 use \ThunderID\Commoquent\Getting;
 use \ThunderID\Commoquent\Saving;
