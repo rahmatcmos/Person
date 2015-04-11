@@ -20,4 +20,8 @@ trait HasContactsTrait {
 		return $this->morphMany('ThunderID\Contact\Models\Contact', 'person');
 	}
 
+	public function scopeCurrentContact($query, $variable)
+	{
+		return $query->with(['contacts' => function($q)use($variable){$q->where('is_default', true)->orderBy($variable, 'asc');}]);
+	}
 }

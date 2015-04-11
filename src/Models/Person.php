@@ -100,7 +100,11 @@ class Person extends BaseModel {
 											'orsuffixtitle' 			=> 'OrSuffixTitle', 
 											'dateofbirth' 				=> 'DateOfBirth', 
 											'withattributes' 			=> 'WithAttributes',
-											'currentwork' 				=> 'CurrentWork'
+											'currentwork' 				=> 'CurrentWork',
+											'currentcontact' 			=> 'CurrentContact',
+											'experiences' 				=> 'Experiences',
+											'checkrelation' 			=> 'CheckRelation',
+											'checkwork'	 				=> 'CheckWork',
 										];
 	public $sortable 				= ['first_name', 'last_name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at'];
 

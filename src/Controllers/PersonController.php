@@ -55,7 +55,7 @@ class PersonController extends Controller {
 	 */
 	public function show($id)
 	{
-		$content 								= $this->dispatch(new Getting(new Person,['ID' => $id, 'WithAttributes' => ['contacts', 'relatives', 'works', 'works.branch', 'works.branch.organisation', 'documents']], ['created_at' => 'asc'] ,1, 1));
+		$content 								= $this->dispatch(new Getting(new Person,['ID' => $id, 'CurrentWork' => 'updated_at', 'CurrentContact' => 'updated_at', 'Experiences' => 'created_at', 'WithAttributes' => ['documents']], ['created_at' => 'asc'] ,1, 1));
 		
 		return $content;
 	}
@@ -93,6 +93,7 @@ class PersonController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
+
 	public function documents($person_id, $id, $page = 1)
 	{
 		$per_page 								= 12;
