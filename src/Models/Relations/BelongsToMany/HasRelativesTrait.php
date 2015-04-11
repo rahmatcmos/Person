@@ -22,6 +22,12 @@ trait HasRelativesTrait {
 				->withPivot('relationship');
 	}
 
+	public function Person()
+	{
+		return $this->belongsToMany('ThunderID\Person\Models\Person', 'relatives', 'person_id', 'relative_id')
+				->withPivot('relationship');
+	}
+
 	public function scopeCheckRelation($query, $variable)
 	{
 		return $query->select('persons.*')

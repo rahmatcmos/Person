@@ -4,6 +4,7 @@ use \App\Http\Controllers\Controller;
 use \ThunderID\Person\Models\Person;
 use \ThunderID\Document\Models\PersonDocument;
 use \ThunderID\Work\Models\Work;
+use \ThunderID\Document\Models\PersonDocument;
 use \ThunderID\Contact\Models\Contact;
 use \ThunderID\Commoquent\Getting;
 use \ThunderID\Commoquent\Saving;
@@ -57,6 +58,55 @@ class PersonController extends Controller {
 		{
 			DB::rollback();
 			return $content;
+		}
+
+		if(Input::get('attributes')['works'])
+		{
+			foreach (Input::get('attributes')['works'] as $key => $value) 
+			{
+				$saved_work 				= $this->dispatch(new Saving(new Work, $value, null, new Person, $is_success->data->id));
+				$is_success_2 				= json_decode($saved_work);
+				if(!$is_success_2->meta->success)
+				{
+					DB::rollback();
+					return $saved_work;
+				}
+			}
+		}
+
+		if(Input::get('attributes')['documents'])
+		{
+			foreach (Input::get('attributes')['documents'] as $key => $value) 
+			{
+				$saved_document 			= $this->dispatch(new Saving(new PersonDocument, $value, null, new Person, $is_success->data->id));
+				$is_success_2 				= json_decode($saved_document);
+				if(!$is_success_2->meta->success)
+				{
+					DB::rollback();
+					return $saved_document;
+				}
+			}
+		}
+
+		if(Input::get('attributes')['relatives'])
+		{
+			foreach (Input::get('attributes')['relatives'] as $key => $value) 
+			{
+				if(isset($value['id']))
+				{
+					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, $value['id'], new Person, $is_success->data->id));
+				}
+				else
+				{
+					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, null, new Person, $is_success->data->id));
+				}
+				$is_success_2 				= json_decode($saved_relative);
+				if(!$is_success_2->meta->success)
+				{
+					DB::rollback();
+					return $saved_relative;
+				}
+			}
 		}
 
 		if(Input::get('attributes')['contact'])
