@@ -41,16 +41,9 @@ class PersonObserver
 	public function deleting($model)
 	{
 		//
-		if($model->relatives)
+		if($model->works->count())
 		{
-			$model['errors'] 	= ['Cannot delete model has relatives'];
-
-			return false;
-		}
-
-		if($model->works)
-		{
-			$model['errors'] 	= ['Cannot delete model has works'];
+			$model['errors'] 	= ['Tidak dapat menghapus karyawan yang memiliki pekerjaan'];
 
 			return false;
 		}
