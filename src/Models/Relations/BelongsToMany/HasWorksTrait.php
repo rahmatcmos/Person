@@ -34,11 +34,11 @@ trait HasWorksTrait {
 
 	public function scopeCurrentWork($query, $variable)
 	{
-		return $query->with(['works' => function($q)use($variable){$q->whereNull('end')->orderBy($variable);}, 'works.branch.organisation']);
+		return $query->with(['works' => function($q)use($variable){$q->whereNull('end')->orderBy($variable);}, 'works.branch.organisation', 'works.applications']);
 	}
 
 	public function scopeExperiences($query, $variable)
 	{
-		return $query->with(['experiences' => function($q)use($variable){$q->orderBy($variable, 'asc');}, 'experiences.branch.organisation']);
+		return $query->with(['experiences' => function($q)use($variable){$q->orderBy($variable, 'asc')->take(10);}, 'experiences.branch.organisation']);
 	}
 }

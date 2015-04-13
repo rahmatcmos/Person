@@ -19,4 +19,9 @@ trait HasDocumentsTrait {
 	{
 		return $this->belongsToMany('ThunderID\Doclate\Models\Document', 'persons_documents', 'person_id', 'document_id');
 	}
+
+	public function ScopeRequiredDocuments($query, $variable)
+	{
+		return $query->with(['documents' => function($q)use($variable){$q->where('is_required', true)->orderBy($variable, 'asc');}]);
+	}
 }

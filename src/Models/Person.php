@@ -105,6 +105,7 @@ class Person extends BaseModel {
 											'experiences' 				=> 'Experiences',
 											'checkrelation' 			=> 'CheckRelation',
 											'checkwork'	 				=> 'CheckWork',
+											'requireddocuments'	 		=> 'RequiredDocuments',
 										];
 	public $sortable 				= ['first_name', 'last_name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at'];
 

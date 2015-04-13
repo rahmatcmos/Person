@@ -2,7 +2,8 @@
 
 use \App\Http\Controllers\Controller;
 use \ThunderID\Person\Models\Person;
-use \ThunderID\Document\Models\PersonDocument;
+use \ThunderID\Doclate\Models\PersonDocument;
+use \ThunderID\Doclate\Models\DocumentDetail;
 use \ThunderID\Work\Models\Work;
 use \ThunderID\Contact\Models\Contact;
 use \ThunderID\Commoquent\Getting;
@@ -38,7 +39,7 @@ class PersonController extends Controller {
 	 */
 	public function store()
 	{
-		$id 									= Input::get('id');
+		$id 									= Input::get('attributes')['person']['id'];
 
 		if(Input::has('attributes')['password'])
 		{
@@ -77,12 +78,42 @@ class PersonController extends Controller {
 		{
 			foreach (Input::get('attributes')['documents'] as $key => $value) 
 			{
-				$saved_document 			= $this->dispatch(new Saving(new PersonDocument, $value, null, new Person, $is_success->data->id));
-				$is_success_2 				= json_decode($saved_document);
+				$attributes['document_id']	= $value['document']['id'];
+				if(isset($value['id']) && $value['id']!='' && !is_null($value['id']))
+				{
+					$attributes['id']			= $value['id'];
+				}
+				else
+				{
+					$attributes['id']			= null;
+				}
+				$saved_document 				= $this->dispatch(new Saving(new PersonDocument, $attributes, $attributes['id'], new Person, $is_success->data->id));
+				$is_success_2 					= json_decode($saved_document);
 				if(!$is_success_2->meta->success)
 				{
 					DB::rollback();
 					return $saved_document;
+				}
+				foreach (Input::get('attributes')['documents'][$key]['details'] as $key2 => $value2) 
+				{
+					$attributes_2['document_template_id']	= $value2['document_template_id'];
+					$attributes_2['value']		= $value2['value'];
+					if(isset($value2['id']) && $value2['id']!='' && !is_null($value2['id']))
+					{
+						$attributes_2['id']		= $value2['id'];
+					}
+					else
+					{
+						$attributes_2['id']		= null;
+					}
+
+					$saved_detail 				= $this->dispatch(new Saving(new DocumentDetail, $attributes_2, $attributes_2['id'], new PersonDocument, $is_success_2->data->id));
+					$is_success_3 				= json_decode($saved_detail);
+					if(!$is_success_3->meta->success)
+					{
+						DB::rollback();
+						return $saved_detail;
+					}	
 				}
 			}
 		}
@@ -149,7 +180,7 @@ class PersonController extends Controller {
 	 */
 	public function show($id)
 	{
-		$content 								= $this->dispatch(new Getting(new Person,['ID' => $id, 'CurrentWork' => 'updated_at', 'CurrentContact' => 'updated_at', 'Experiences' => 'created_at', 'WithAttributes' => ['documents']], ['created_at' => 'asc'] ,1, 1));
+		$content 								= $this->dispatch(new Getting(new Person,['ID' => $id, 'CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at'], ['created_at' => 'asc'] ,1, 1));
 		
 		return $content;
 	}
