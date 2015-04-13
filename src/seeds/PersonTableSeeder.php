@@ -3,12 +3,13 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use ThunderID\Person\Models\Person;
-use \Faker, Hash;
+use \Faker, Hash, DB;
 
 class PersonTableSeeder extends Seeder
 {
 	function run()
 	{
+		DB::table('persons')->truncate();
 		$faker 										= Faker::create();
 		$gender 									= ['male', 'female'];
 		$prefix 									= ['Prof.', 'Dr.', 'Ir.'];

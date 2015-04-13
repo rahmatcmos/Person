@@ -3,11 +3,13 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use ThunderID\Person\Models\Person;
+use \DB;
 
 class RelativeTableSeeder extends Seeder
 {
 	function run()
 	{
+		DB::table('relatives')->truncate();
 		$total_person 								= Person::count();
 		try
 		{
