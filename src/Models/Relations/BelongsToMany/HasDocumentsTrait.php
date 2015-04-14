@@ -17,7 +17,8 @@ trait HasDocumentsTrait {
 	/* ------------------------------------------------------------------- RELATIONSHIP IN DOCUMENT PACKAGE -------------------------------------------------------------------*/
 	public function Documents()
 	{
-		return $this->belongsToMany('ThunderID\Doclate\Models\Document', 'persons_documents', 'person_id', 'document_id');
+		return $this->belongsToMany('ThunderID\Doclate\Models\Document', 'persons_documents', 'person_id', 'document_id')
+					->withPivot('created_at');
 	}
 
 	public function ScopeRequiredDocuments($query, $variable)

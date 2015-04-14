@@ -2,6 +2,7 @@
 
 use \App\Http\Controllers\Controller;
 use \ThunderID\Person\Models\Person;
+use \ThunderID\Person\Models\Relative;
 use \ThunderID\Doclate\Models\PersonDocument;
 use \ThunderID\Doclate\Models\DocumentDetail;
 use \ThunderID\Work\Models\Work;
@@ -219,27 +220,18 @@ class PersonController extends Controller {
 	 * @return Response
 	 */
 
-	public function documents($person_id, $id, $page = 1)
+	public function relativedestroy($person_id, $id)
 	{
-		$per_page 								= 12;
-	
-		$search 								= Input::get('search');
-		$search['Person']						= $person_id;
-		$search['Document']						= $id;
-		$contents 								= $this->dispatch(new Getting(new PersonDocument, $search, Input::get('sort') ,(int)$page, $per_page));
+		$content 							= $this->dispatch(new Getting(new Relative,['relativeid' => $person_id], ['created_at' => 'asc'] ,1, 1));
 
-		return $contents;
-	}
-
-	public function document($person_id, $doc_id, $id)
-	{
-		$search['Person']						= $person_id;
-		$search['Document']						= $doc_id;
-		$search['ID']							= $id;
-
-		$contents 								= $this->dispatch(new Getting(new PersonDocument, $search, ['created_at' => 'desc'] ,1, 1));
+		$result 							= json_decode($content);
 		
-		return $contents;
+		if($result->meta->success)
+		{
+			$content 						= $this->dispatch(new Deleting(new Relative, $id));
+		} 						
+	
+		return $content;
 	}
 
 	public function works($person_id, $page = 1)

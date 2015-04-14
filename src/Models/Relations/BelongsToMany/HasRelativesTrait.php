@@ -19,7 +19,7 @@ trait HasRelativesTrait {
 	public function Relatives()
 	{
 		return $this->belongsToMany('ThunderID\Person\Models\Person', 'relatives', 'person_id', 'relative_id')
-				->withPivot('relationship');
+				->withPivot('relationship', 'id');
 	}
 
 	public function Person()
@@ -30,7 +30,7 @@ trait HasRelativesTrait {
 
 	public function scopeCheckRelation($query, $variable)
 	{
-		return $query->select('persons.*')
+		return $query->select('persons.*', 'relatives.id as relative_id')
 					 ->join('relatives', 'persons.id', '=', 'relatives.person_id')
 					 ->where('relative_id', $variable);
 	}
