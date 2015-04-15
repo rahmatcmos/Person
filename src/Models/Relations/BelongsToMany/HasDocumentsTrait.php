@@ -23,6 +23,6 @@ trait HasDocumentsTrait {
 
 	public function ScopeRequiredDocuments($query, $variable)
 	{
-		return $query->with(['documents' => function($q)use($variable){$q->where('is_required', true)->orderBy($variable, 'asc');}]);
+		return $query->with(['documents' => function($q)use($variable){$q->where('is_required', true)->orderBy($variable, 'asc');}, 'documents.templates']);
 	}
 }

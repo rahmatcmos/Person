@@ -83,49 +83,49 @@ class PersonController extends Controller {
 			}
 		}
 
-		// if(isset(Input::get('attributes')['documents']))
-		// {
-		// 	foreach (Input::get('attributes')['documents'] as $key => $value) 
-		// 	{
-		// 		$attributes['document_id']	= $value['document']['id'];
-		// 		if(isset($value['id']) && $value['id']!='' && !is_null($value['id']))
-		// 		{
-		// 			$attributes['id']			= $value['id'];
-		// 		}
-		// 		else
-		// 		{
-		// 			$attributes['id']			= null;
-		// 		}
-		// 		$saved_document 				= $this->dispatch(new Saving(new PersonDocument, $attributes, $attributes['id'], new Person, $is_success->data->id));
-		// 		$is_success_2 					= json_decode($saved_document);
-		// 		if(!$is_success_2->meta->success)
-		// 		{
-		// 			DB::rollback();
-		// 			return $saved_document;
-		// 		}
-		// 		foreach (Input::get('attributes')['documents'][$key]['details'] as $key2 => $value2) 
-		// 		{
-		// 			$attributes_2['document_template_id']	= $value2['document_template_id'];
-		// 			$attributes_2['value']		= $value2['value'];
-		// 			if(isset($value2['id']) && $value2['id']!='' && !is_null($value2['id']))
-		// 			{
-		// 				$attributes_2['id']		= $value2['id'];
-		// 			}
-		// 			else
-		// 			{
-		// 				$attributes_2['id']		= null;
-		// 			}
+		if(isset(Input::get('attributes')['documents']))
+		{
+			foreach (Input::get('attributes')['documents'] as $key => $value) 
+			{
+				$attributes['document_id']	= $value['document']['id'];
+				if(isset($value['id']) && $value['id']!='' && !is_null($value['id']))
+				{
+					$attributes['id']			= $value['id'];
+				}
+				else
+				{
+					$attributes['id']			= null;
+				}
+				$saved_document 				= $this->dispatch(new Saving(new PersonDocument, $attributes, $attributes['id'], new Person, $is_success->data->id));
+				$is_success_2 					= json_decode($saved_document);
+				if(!$is_success_2->meta->success)
+				{
+					DB::rollback();
+					return $saved_document;
+				}
+				foreach (Input::get('attributes')['documents'][$key]['details'] as $key2 => $value2) 
+				{
+					$attributes_2['document_template_id']	= $value2['document_template_id'];
+					$attributes_2['value']		= $value2['value'];
+					if(isset($value2['id']) && $value2['id']!='' && !is_null($value2['id']))
+					{
+						$attributes_2['id']		= $value2['id'];
+					}
+					else
+					{
+						$attributes_2['id']		= null;
+					}
 
-		// 			$saved_detail 				= $this->dispatch(new Saving(new DocumentDetail, $attributes_2, $attributes_2['id'], new PersonDocument, $is_success_2->data->id));
-		// 			$is_success_3 				= json_decode($saved_detail);
-		// 			if(!$is_success_3->meta->success)
-		// 			{
-		// 				DB::rollback();
-		// 				return $saved_detail;
-		// 			}	
-		// 		}
-		// 	}
-		// }
+					$saved_detail 				= $this->dispatch(new Saving(new DocumentDetail, $attributes_2, $attributes_2['id'], new PersonDocument, $is_success_2->data->id));
+					$is_success_3 				= json_decode($saved_detail);
+					if(!$is_success_3->meta->success)
+					{
+						DB::rollback();
+						return $saved_detail;
+					}	
+				}
+			}
+		}
 
 		if(isset(Input::get('attributes')['relatives']))
 		{
@@ -171,7 +171,7 @@ class PersonController extends Controller {
 					}
 
 					$saved_contact 				= $this->dispatch(new Saving(new Contact, $contact, $contact['id'], new Person, $is_success->data->id));
-			return $saved_contact;
+
 					$is_success_2 				= json_decode($saved_contact);
 					if(!$is_success_2->meta->success)
 					{
