@@ -45,7 +45,7 @@ class AuthController extends Controller {
 	 */
 	function person()
 	{
-		$content 								= $this->dispatch(new Getting(new Person, ['id' => Input::get('id'), 'CurrentWork' => 'updated_at'], ['created_at' => 'asc'],1, 1));
+		$content 								= $this->dispatch(new Getting(new Person, ['id' => Input::get('id'), 'CurrentWork' => 'updated_at', 'checkwidget' => 'order'], ['created_at' => 'asc'],1, 1));
 
 		return $content;
 	}

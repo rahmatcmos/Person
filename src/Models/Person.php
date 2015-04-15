@@ -56,7 +56,7 @@ class Person extends BaseModel {
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasDocumentsTrait;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasWorksTrait;
 	use \ThunderID\Person\Models\Relations\MorphMany\HasContactsTrait;
-	use \ThunderID\Person\Models\Relations\HasOne\HasAuthenticationTrait;
+	use \ThunderID\Person\Models\Relations\HasMany\HasWidgetsTrait;
 
 	public 		$timestamps 		= true;
 
@@ -105,6 +105,8 @@ class Person extends BaseModel {
 											'experiences' 				=> 'Experiences',
 											'checkrelation' 			=> 'CheckRelation',
 											'checkwork'	 				=> 'CheckWork',
+											'checkwidget'	 			=> 'CheckWidget',
+											'checkcreate' 				=> 'CheckCreate',
 											'requireddocuments'	 		=> 'RequiredDocuments',
 										];
 	public $sortable 				= ['first_name', 'last_name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at'];
@@ -201,6 +203,16 @@ class Person extends BaseModel {
 	public function scopeDateOfBirth($query, $variable)
 	{
 		return $query->where('date_of_birth', 'like' ,'%'.$variable.'%');
+	}
+
+	public function scopeCheckCreate($query, $variable)
+	{
+		if(!is_array($variable))
+		{
+			return $query->where('created_at', '>=', $variable);
+		}
+		return $query->where('created_at', '>=', $variable[0])
+					->where('created_at', '<=', $variable[1]);
 	}
 
 	public function scopeWithAttributes($query, $variable)

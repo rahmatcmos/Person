@@ -44,28 +44,10 @@ class WorkController extends Controller {
 	{
 		$search['PersonID']						= $person_id;
 		$search['ID']							= $id;
+		$search['WithAttributes']				= ['organisationchart', 'organisationchart.branch'];
 
 		$contents 								= $this->dispatch(new Getting(new Work, $search, ['created_at' => 'desc'] ,1, 1));
 		
 		return $contents;
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($person_id, $id)
-	{
-		$content 							= $this->dispatch(new Getting(new PersonDocument,['personid' => $person_id, 'ID' => $id], ['created_at' => 'asc'] ,1, 1));
-		$result 							= json_decode($content);
-		
-		if($result->meta->success)
-		{
-			$content 						= $this->dispatch(new Deleting(new PersonDocument, $id));
-		} 						
-	
-		return $content;
 	}
 }
