@@ -87,10 +87,10 @@ class PersonController extends Controller {
 		{
 			foreach (Input::get('attributes')['documents'] as $key => $value) 
 			{
-				$attributes['document_id']	= $value['document']['id'];
-				if(isset($value['id']) && $value['id']!='' && !is_null($value['id']))
+				$attributes['document_id']		= $value['document']['id'];
+				if(isset($value['document']['id']) && $value['document']['id']!='' && !is_null($value['document']['id']))
 				{
-					$attributes['id']			= $value['id'];
+					$attributes['id']			= $value['document']['id'];
 				}
 				else
 				{
@@ -115,7 +115,6 @@ class PersonController extends Controller {
 					{
 						$attributes_2['id']		= null;
 					}
-
 					$saved_detail 				= $this->dispatch(new Saving(new DocumentDetail, $attributes_2, $attributes_2['id'], new PersonDocument, $is_success_2->data->id));
 					$is_success_3 				= json_decode($saved_detail);
 					if(!$is_success_3->meta->success)
