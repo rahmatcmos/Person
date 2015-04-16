@@ -87,7 +87,7 @@ class PersonController extends Controller {
 		{
 			foreach (Input::get('attributes')['documents'] as $key => $value) 
 			{
-				$attributes['document_id']		= $value['document']['id'];
+				$attributes['document_id']		= $value['document']['document_id'];
 				if(isset($value['document']['id']) && $value['document']['id']!='' && !is_null($value['document']['id']))
 				{
 					$attributes['id']			= $value['document']['id'];
