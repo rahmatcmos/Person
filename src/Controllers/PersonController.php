@@ -108,7 +108,14 @@ class PersonController extends Controller {
 				foreach (Input::get('attributes')['documents'][$key]['details'] as $key2 => $value2) 
 				{
 					$attributes_2['template_id']	= $value2['template_id'];
-					$attributes_2['value']		= $value2['value'];
+					if(int($value2['value']))
+					{
+						$attributes_2['numeric']			= $value2['value'];
+					}
+					elseif(int($value2['value']))
+					{
+						$attributes_2['text']			= $value2['value'];
+					}
 					if(isset($value2['id']) && $value2['id']!='' && !is_null($value2['id']))
 					{
 						$attributes_2['id']		= $value2['id'];
@@ -134,11 +141,11 @@ class PersonController extends Controller {
 			{
 				if(isset($value['id']))
 				{
-					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, $value['id'], new Person, $is_success->data->id, $value['relationship']));
+					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, $value['id'], new Person, $is_success->data->id, ['relationship' => $value['relationship'], 'organisation_id' => $value['organisation_id']));
 				}
 				else
 				{
-					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, null, new Person, $is_success->data->id, $value['relationship']));
+					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, null, new Person, $is_success->data->id, ['relationship' => $value['relationship'], 'organisation_id' => $value['organisation_id']));
 				}
 				$is_success_2 				= json_decode($saved_relative);
 				if(!$is_success_2->meta->success)
