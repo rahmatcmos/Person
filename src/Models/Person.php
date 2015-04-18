@@ -8,6 +8,7 @@
  * 	middle_name 					: Varchar, 255
  * 	last_name 						: Varchar, 255
  * 	nick_name 						: Varchar, 255, Required
+ * 	full_name 						: Varchar, 255
  * 	prefix_title 					: Varchar, 255, Required
  * 	suffix_title 					: Varchar, 255, Required
  * 	place_of_birth 					: Varchar, 255, Required
@@ -65,6 +66,7 @@ class Person extends BaseModel {
 										'middle_name' 					,
 										'last_name' 					,
 										'nick_name' 					,
+										'full_name' 					,
 										'prefix_title' 					,
 										'suffix_title' 					,
 										'place_of_birth' 				,
@@ -80,6 +82,7 @@ class Person extends BaseModel {
 										'middle_name' 					=> 'max:255',
 										'last_name' 					=> 'max:255',
 										'nick_name' 					=> 'required|max:255',
+										'full_name' 					=> 'max:255',
 										'prefix_title' 					=> 'max:255',
 										'suffix_title' 					=> 'max:255',
 										'place_of_birth' 				=> 'required|max:255',
@@ -92,6 +95,7 @@ class Person extends BaseModel {
 											'id' 						=> 'ID', 
 											'firstname' 				=> 'FirstName', 
 											'lastname' 					=> 'LastName', 
+											'fullname' 					=> 'FullName', 
 											'prefixtitle' 				=> 'PrefixTitle', 
 											'suffixtitle' 				=> 'SuffixTitle', 
 											'orlastname' 				=> 'OrLastName', 
@@ -172,6 +176,11 @@ class Person extends BaseModel {
 	public function scopeLastName($query, $variable)
 	{
 		return $query->where('last_name', 'like' ,'%'.$variable.'%');
+	}
+
+	public function scopeFullName($query, $variable)
+	{
+		return $query->where('full_name', 'like' ,'%'.$variable.'%');
 	}
 
 	public function scopePrefixTitle($query, $variable)

@@ -19,6 +19,7 @@ class CreatePersonsTable extends Migration {
 			$table->string('middle_name', 255);
 			$table->string('last_name', 255);
 			$table->string('nick_name', 255);
+			$table->string('full_name', 255);
 			$table->string('prefix_title', 255);
 			$table->string('suffix_title', 255);
 			$table->string('place_of_birth', 255);
