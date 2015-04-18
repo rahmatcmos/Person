@@ -1,5 +1,7 @@
 <?php namespace ThunderID\Person\Models\Relations\BelongsToMany;
 
+use DateTime;
+
 trait HasWorksTrait {
 
 	/**
@@ -29,7 +31,22 @@ trait HasWorksTrait {
 
 	public function scopeCheckWork($query, $variable)
 	{
+		if(strtotime($variable))
+		{
+			$days = new DateTime($variable);
+			return $query->whereHas('works', function($q)use($days){$q->where('start', '>=', $days->format('Y-m-d'));});
+		}
 		return $query->whereHas('works', function($q)use($variable){$q;});
+	}
+
+	public function scopeCheckResign($query, $variable)
+	{
+		if(strtotime($variable))
+		{
+			$days = new DateTime($variable);
+			return $query->whereHas('experiences', function($q)use($days){$q->where('end', '<', $days->format('Y-m-d'));});
+		}
+		return $query->whereHas('experiences', function($q)use($variable){$q->where('end', '<', $variable);});
 	}
 
 	public function scopeCurrentWork($query, $variable)

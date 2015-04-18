@@ -108,6 +108,7 @@ class Person extends BaseModel {
 											'experiences' 				=> 'Experiences',
 											'checkrelation' 			=> 'CheckRelation',
 											'checkwork'	 				=> 'CheckWork',
+											'checkresign'	 			=> 'CheckResign',
 											'checkwidget'	 			=> 'CheckWidget',
 											'checkcreate' 				=> 'CheckCreate',
 											'requireddocuments'	 		=> 'RequiredDocuments',
@@ -217,7 +218,9 @@ class Person extends BaseModel {
 	{
 		if(!is_array($variable))
 		{
-			return $query->where('created_at', '>=', $variable);
+			$days 				= new DateTime($variable);
+
+			return $query->where('created_at', '>=', $days->format('Y-m-d'));
 		}
 		return $query->where('created_at', '>=', $variable[0])
 					->where('created_at', '<=', $variable[1]);
