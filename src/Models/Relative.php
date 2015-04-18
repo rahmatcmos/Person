@@ -3,6 +3,7 @@
 /* ----------------------------------------------------------------------
  * Document Model:
  * 	ID 								: Auto Increment, Integer, PK
+ * 	organisation_id 				: Foreign Key From Organisation, Integer, Required
  * 	person_id 						: Foreign Key From Person, Integer, Required
  * 	relative_id 					: Foreign Key From Document, Integer, Required
  *	created_at						: Timestamp
@@ -17,6 +18,7 @@
 use Str, Validator, DateTime, Exception;
 
 class Relative extends BaseModel {
+	use \ThunderID\Person\Models\Relations\BelongsTo\HasOrganisationTrait;
 	
 	public 		$timestamps 		= true;
 
@@ -24,6 +26,7 @@ class Relative extends BaseModel {
 	
 	public $searchable 				= 	[
 											'id' 						=> 'ID', 
+											'organisationid' 			=> 'OrganisationID', 
 											'relativeid' 				=> 'RelativeID', 
 											'personid' 					=> 'PersonID', 
 											'withattributes' 			=> 'WithAttributes'
@@ -82,6 +85,11 @@ class Relative extends BaseModel {
 	public function scopeID($query, $variable)
 	{
 		return $query->where('id', $variable);
+	}
+
+	public function scopeOrganisationID($query, $variable)
+	{
+		return $query->where('organisation_id', $variable);
 	}
 
 	public function scopeRelativeID($query, $variable)

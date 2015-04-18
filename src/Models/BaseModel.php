@@ -1,6 +1,6 @@
 <?php namespace ThunderID\Person\Models;
 
-use \Eloquent;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\MessageBag;
 
 abstract class BaseModel extends Eloquent {

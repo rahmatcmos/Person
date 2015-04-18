@@ -10,7 +10,9 @@ use \ThunderID\Contact\Models\Contact;
 use \ThunderID\Commoquent\Getting;
 use \ThunderID\Commoquent\Saving;
 use \ThunderID\Commoquent\Deleting;
-use Input, Hash, DB;
+use Input;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class PersonController extends Controller {
 
@@ -105,7 +107,7 @@ class PersonController extends Controller {
 				}
 				foreach (Input::get('attributes')['documents'][$key]['details'] as $key2 => $value2) 
 				{
-					$attributes_2['document_template_id']	= $value2['document_template_id'];
+					$attributes_2['template_id']	= $value2['template_id'];
 					$attributes_2['value']		= $value2['value'];
 					if(isset($value2['id']) && $value2['id']!='' && !is_null($value2['id']))
 					{

@@ -17,13 +17,13 @@ trait HasWorksTrait {
 	/* ------------------------------------------------------------------- RELATIONSHIP IN WORK PACKAGE -------------------------------------------------------------------*/
 	public function Works()
 	{
-		return $this->belongsToMany('ThunderID\Organisation\Models\OrganisationChart', 'works', 'person_id', 'organisation_chart_id')
+		return $this->belongsToMany('ThunderID\Organisation\Models\Chart', 'works', 'person_id', 'chart_id')
 					->withPivot('status', 'start', 'end');
 	}
 
 	public function Experiences()
 	{
-		return $this->belongsToMany('ThunderID\Organisation\Models\OrganisationChart', 'works', 'person_id', 'organisation_chart_id')
+		return $this->belongsToMany('ThunderID\Organisation\Models\Chart', 'works', 'person_id', 'chart_id')
 					->withPivot('status', 'start', 'end', 'reason_end_job');
 	}
 

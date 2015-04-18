@@ -6,7 +6,9 @@ use \ThunderID\Work\Models\Work;
 use \ThunderID\Commoquent\Getting;
 use \ThunderID\Commoquent\Saving;
 use \ThunderID\Commoquent\Deleting;
-use Input, Hash, DB;
+use Input;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class WorkController extends Controller {
 
@@ -44,7 +46,7 @@ class WorkController extends Controller {
 	{
 		$search['PersonID']						= $person_id;
 		$search['ID']							= $id;
-		$search['WithAttributes']				= ['organisationchart', 'organisationchart.branch'];
+		$search['WithAttributes']				= ['chart', 'chart.branch'];
 
 		$contents 								= $this->dispatch(new Getting(new Work, $search, ['created_at' => 'desc'] ,1, 1));
 		

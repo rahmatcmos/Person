@@ -21,6 +21,7 @@ class AuthController extends Controller {
 	 */
 	function user()
 	{
+		('ERROR YANG DISENGAJA... ZONKKKKK!!!!');
 		$content 								= $this->dispatch(new Checking(new Person, ['username' => Input::get('username'), 'password' => Input::get('password')]));
 
 		return $content;
