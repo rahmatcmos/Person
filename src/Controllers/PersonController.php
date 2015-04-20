@@ -110,9 +110,9 @@ class PersonController extends Controller {
 					$attributes_2['template_id']	= $value2['template_id'];
 					if(int($value2['value']))
 					{
-						$attributes_2['numeric']			= $value2['value'];
+						$attributes_2['numeric'] = $value2['value'];
 					}
-					elseif(int($value2['value']))
+					else
 					{
 						$attributes_2['text']			= $value2['value'];
 					}
@@ -156,15 +156,15 @@ class PersonController extends Controller {
 			}
 		}
 
-		if(isset(Input::get('attributes')['contact']))
+		if(isset(Input::get('attributes')['contacts']))
 		{
-			foreach (Input::get('attributes')['contact'] as $key0 => $value0) 
+			foreach (Input::get('attributes')['contacts'] as $key0 => $value0) 
 			{
-				foreach (Input::get('attributes')['contact'][$key0] as $key => $value) 
+				foreach (Input::get('attributes')['contacts'][$key0] as $key => $value) 
 				{
-					$contact['item']			= $key0;
+					$contact['item']			= $value['item'];
 					$contact['value']			= $value['value'];
-					if($key==count(Input::get('attributes')['contact'][$key0])-1)
+					if($key==count(Input::get('attributes')['contacts'][$key0])-1)
 					{
 						$contact['is_default']	= true;
 					}

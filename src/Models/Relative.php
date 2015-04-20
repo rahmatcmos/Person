@@ -12,6 +12,11 @@
  * 
 /* ----------------------------------------------------------------------
  * Document Relationship :
+	//other package
+ 	1 Relationship belongsTo 
+	{
+		Organisation
+	}
 
  * ---------------------------------------------------------------------- */
 
@@ -19,6 +24,7 @@ use Str, Validator, DateTime, Exception;
 
 class Relative extends BaseModel {
 	use \ThunderID\Person\Models\Relations\BelongsTo\HasOrganisationTrait;
+	use \ThunderID\Person\Models\Relations\BelongsTo\HasPersonTrait;
 	
 	public 		$timestamps 		= true;
 

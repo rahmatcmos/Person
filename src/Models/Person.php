@@ -1,5 +1,6 @@
 <?php namespace ThunderID\Person\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /* ----------------------------------------------------------------------
  * Document Model:
@@ -42,16 +43,13 @@
 		Contacts
 	}
 
-	1 Relationship belongsTo 
-	{
-		Organisation
-	}
  * ---------------------------------------------------------------------- */
 
 use Str, Validator, DateTime, Exception;
 
 class Person extends BaseModel {
 
+	use SoftDeletes;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasRelativesTrait;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasDocumentsTrait;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasWorksTrait;
