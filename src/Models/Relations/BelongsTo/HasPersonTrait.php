@@ -1,4 +1,4 @@
-<?php namespace ThunderID\Work\Models\Relations\BelongsTo;
+<?php namespace ThunderID\Person\Models\Relations\BelongsTo;
 
 trait HasPersonTrait {
 

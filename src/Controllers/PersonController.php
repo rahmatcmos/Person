@@ -108,7 +108,7 @@ class PersonController extends Controller {
 				foreach (Input::get('attributes')['documents'][$key]['details'] as $key2 => $value2) 
 				{
 					$attributes_2['template_id']	= $value2['template_id'];
-					if(int($value2['value']))
+					if((int)($value2['value']))
 					{
 						$attributes_2['numeric'] = $value2['value'];
 					}
@@ -154,7 +154,7 @@ class PersonController extends Controller {
 					return $saved_relative;
 				}
 				
-				if(isset(Input::get('attributes')['relatives']['contacts']))
+				if(isset($value['contacts']))
 				{
 					foreach ($value['contacts'] as $key2 => $value2) 
 					{

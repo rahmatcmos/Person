@@ -102,6 +102,7 @@ class Person extends BaseModel {
 											'dateofbirth' 				=> 'DateOfBirth', 
 											'withattributes' 			=> 'WithAttributes',
 											'currentwork' 				=> 'CurrentWork',
+											'currentworkon' 			=> 'CurrentWorkOn',
 											'currentcontact' 			=> 'CurrentContact',
 											'experiences' 				=> 'Experiences',
 											'checkrelation' 			=> 'CheckRelation',

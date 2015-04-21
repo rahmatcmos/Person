@@ -21,7 +21,6 @@ class AuthController extends Controller {
 	 */
 	function user()
 	{
-		('ERROR YANG DISENGAJA... ZONKKKKK!!!!');
 		$content 								= $this->dispatch(new Checking(new Person, ['username' => Input::get('username'), 'password' => Input::get('password')]));
 
 		return $content;
@@ -46,7 +45,7 @@ class AuthController extends Controller {
 	 */
 	function person()
 	{
-		$content 								= $this->dispatch(new Getting(new Person, ['id' => Input::get('id'), 'CurrentWork' => 'updated_at', 'checkwidget' => 'order'], ['created_at' => 'asc'],1, 1));
+		$content 								= $this->dispatch(new Getting(new Person, ['id' => Input::get('id'), 'CurrentWork' => '', 'checkwidget' => 'order'], ['created_at' => 'asc'],1, 1));
 
 		return $content;
 	}
