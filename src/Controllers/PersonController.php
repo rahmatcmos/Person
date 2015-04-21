@@ -10,7 +10,7 @@ use \ThunderID\Contact\Models\Contact;
 use \ThunderID\Commoquent\Getting;
 use \ThunderID\Commoquent\Saving;
 use \ThunderID\Commoquent\Deleting;
-use Input;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
@@ -152,6 +152,36 @@ class PersonController extends Controller {
 				{
 					DB::rollback();
 					return $saved_relative;
+				}
+				
+				if(isset(Input::get('attributes')['relatives']['contacts']))
+				{
+					foreach ($value['contacts'] as $key2 => $value2) 
+					{
+						$contact['item']			= $value2['item'];
+						$contact['value']			= $value2['value'];
+						if($key==count($value['contacts'])-1)
+						{
+							$contact['is_default']	= true;
+						}
+
+						if(isset($value2['id']) && $value2['id']!='' && !is_null($value2['id']))
+						{
+							$contact['id']			= $value2['id'];
+						}
+						else
+						{
+							$contact['id']			= null;
+						}
+
+						$saved_contact 				= $this->dispatch(new Saving(new Contact, $contact, $contact['id'], new Person, $is_success_2->data->id));					
+						$is_success_3 				= json_decode($saved_contact);
+						if(!$is_success_3->meta->success)
+						{
+							DB::rollback();
+							return $saved_contact;
+						}
+					}
 				}
 			}
 		}
