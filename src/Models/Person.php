@@ -100,6 +100,7 @@ class Person extends BaseModel {
 											'orprefixtitle' 			=> 'OrPrefixTitle', 
 											'orsuffixtitle' 			=> 'OrSuffixTitle', 
 											'dateofbirth' 				=> 'DateOfBirth', 
+											'gender' 					=> 'Gender', 
 											'withattributes' 			=> 'WithAttributes',
 											'currentwork' 				=> 'CurrentWork',
 											'currentworkon' 			=> 'CurrentWorkOn',
@@ -210,7 +211,17 @@ class Person extends BaseModel {
 
 	public function scopeDateOfBirth($query, $variable)
 	{
-		return $query->where('date_of_birth', 'like' ,'%'.$variable.'%');
+		if(is_array($variable) && count($variable)==2)
+		{
+			return $query->where('date_of_birth', '>' , $variable[0])->where('date_of_birth', '<=' , $variable[1]);
+		}
+
+		return $query->where('date_of_birth', '>' , $variable);
+	}
+
+	public function scopeGender($query, $variable)
+	{
+		return $query->where('gender', $variable);
 	}
 
 	public function scopeCheckCreate($query, $variable)

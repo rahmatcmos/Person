@@ -30,6 +30,9 @@ class CreatePersonsTable extends Migration {
 			$table->text('avatar');
 			$table->timestamps();
 			$table->softDeletes();
+
+			$table->index(['first_name', 'full_name']);
+			$table->index(['gender']);
 		});
 	}
 
