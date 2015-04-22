@@ -56,6 +56,11 @@ trait HasWorksTrait {
 
 	public function scopeCurrentWorkOn($query, $variable)
 	{
+		if(is_array($variable) && count($variable)==2)
+		{
+			return $query->whereHas('works.branch', function($q)use($variable){$q->where('branches.name', 'like', '%'.$variable[0].'%')->where('charts.tag', 'like', '%'.$variable[1].'%');});
+		}
+
 		return $query->whereHas('works.branch', function($q)use($variable){$q->where('branches.name', 'like', '%'.$variable.'%');});
 	}
 

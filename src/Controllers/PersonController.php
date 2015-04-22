@@ -42,15 +42,13 @@ class PersonController extends Controller {
 	 */
 	public function store()
 	{
-		$id 									= Input::get('attributes')['person']['id'];
-
-		if(Input::has('attributes')['password'])
-		{
-			$attributes['password']				= Hash::make(Input::get('attributes')['password']);
-		}
-
 		$id 									= Input::get('id');
 		$attributes 							= Input::get('attributes')['person'];
+
+		if(isset(Input::get('attributes')['person']['password']))
+		{
+			$attributes['password']				= Hash::make(Input::get('attributes')['person']['password']);
+		}
 
 		DB::beginTransaction();
 		
