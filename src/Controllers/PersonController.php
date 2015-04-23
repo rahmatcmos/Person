@@ -26,11 +26,11 @@ class PersonController extends Controller {
 	 *
 	 * @return Response
 	 */
-	function index($page = 1)
+	public function index($page = 1, $search = null, $sort = null)
 	{
 		$per_page 								= 12;
 	
-		$contents 								= $this->dispatch(new Getting(new Person, Input::get('search'), Input::get('sort') ,(int)$page, $per_page));
+		$contents 								= $this->dispatch(new Getting(new Person, $search,  $sort,(int)$page, $per_page));
 		
 		return $contents;
 	}
@@ -40,19 +40,16 @@ class PersonController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($id = null, $attributes=null)
 	{
-		$id 									= Input::get('id');
-		$attributes 							= Input::get('attributes')['person'];
-
-		if(isset(Input::get('attributes')['person']['password']))
+		if(isset($attributes['person']['password']))
 		{
-			$attributes['password']				= Hash::make(Input::get('attributes')['person']['password']);
+			$attributes['password']				= Hash::make($attributes['person']['password']);
 		}
 
 		DB::beginTransaction();
 		
-		$content 								= $this->dispatch(new Saving(new Person, $attributes, $id));
+		$content 								= $this->dispatch(new Saving(new Person, $attributes['person'], $id));
 
 		$is_success 							= json_decode($content);
 		if(!$is_success->meta->success)
@@ -61,9 +58,9 @@ class PersonController extends Controller {
 			return $content;
 		}
 
-		if(isset(Input::get('attributes')['works']))
+		if(isset($attributes['works']))
 		{
-			foreach (Input::get('attributes')['works'] as $key => $value) 
+			foreach ($attributes['works'] as $key => $value) 
 			{
 				if(isset($value['id']) && $value['id']!='' && !is_null($value['id']))
 				{
@@ -83,9 +80,9 @@ class PersonController extends Controller {
 			}
 		}
 
-		if(isset(Input::get('attributes')['documents']))
+		if(isset($attributes['documents']))
 		{
-			foreach (Input::get('attributes')['documents'] as $key => $value) 
+			foreach ($attributes['documents'] as $key => $value) 
 			{
 				$attributes['document_id']		= $value['document']['document_id'];
 				if(isset($value['document']['id']) && $value['document']['id']!='' && !is_null($value['document']['id']))
@@ -103,7 +100,7 @@ class PersonController extends Controller {
 					DB::rollback();
 					return $saved_document;
 				}
-				foreach (Input::get('attributes')['documents'][$key]['details'] as $key2 => $value2) 
+				foreach ($attributes['documents'][$key]['details'] as $key2 => $value2) 
 				{
 					$attributes_2['template_id']	= $value2['template_id'];
 					if((int)($value2['value']))
@@ -133,9 +130,9 @@ class PersonController extends Controller {
 			}
 		}
 
-		if(isset(Input::get('attributes')['relatives']))
+		if(isset($attributes['relatives']))
 		{
-			foreach (Input::get('attributes')['relatives'] as $key => $value) 
+			foreach ($attributes['relatives'] as $key => $value) 
 			{
 				if(isset($value['id']))
 				{
@@ -184,15 +181,15 @@ class PersonController extends Controller {
 			}
 		}
 
-		if(isset(Input::get('attributes')['contacts']))
+		if(isset($attributes['contacts']))
 		{
-			foreach (Input::get('attributes')['contacts'] as $key0 => $value0) 
+			foreach ($attributes['contacts'] as $key0 => $value0) 
 			{
-				foreach (Input::get('attributes')['contacts'][$key0] as $key => $value) 
+				foreach ($attributes['contacts'][$key0] as $key => $value) 
 				{
 					$contact['item']			= $value['item'];
 					$contact['value']			= $value['value'];
-					if($key==count(Input::get('attributes')['contacts'][$key0])-1)
+					if($key==count($attributes['contacts'][$key0])-1)
 					{
 						$contact['is_default']	= true;
 					}
@@ -233,19 +230,6 @@ class PersonController extends Controller {
 	{
 		$content 								= $this->dispatch(new Getting(new Person,['ID' => $id, 'CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at'], ['created_at' => 'asc'] ,1, 1));
 		
-		return $content;
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id, $attributes = null)
-	{
-		$content 								= $this->dispatch(new Saving(new Person, $attributes, $id));
-
 		return $content;
 	}
 

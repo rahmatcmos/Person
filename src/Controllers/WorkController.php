@@ -24,14 +24,13 @@ class WorkController extends Controller {
 	 * @return Response
 	 */
 
-	public function index($person_id, $page = 1)
+	public function index($person_id, $page = 1, $search = null, $sort = null)
 	{
 		$per_page 								= 12;
 	
-		$search 								= Input::get('search');
 		$search['PersonID']						= $person_id;
 
-		$contents 								= $this->dispatch(new Getting(new Work, $search, Input::get('sort') ,(int)$page, $per_page));
+		$contents 								= $this->dispatch(new Getting(new Work, $search, $sort ,(int)$page, $per_page));
 
 		return $contents;
 	}

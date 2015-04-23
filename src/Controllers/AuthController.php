@@ -19,9 +19,9 @@ class AuthController extends Controller {
 	 *
 	 * @return Response
 	 */
-	function user()
+	function user($username = null, $password = null)
 	{
-		$content 								= $this->dispatch(new Checking(new Person, ['username' => Input::get('username'), 'password' => Input::get('password')]));
+		$content 								= $this->dispatch(new Checking(new Person, ['username' => $username, 'password' => $password]));
 
 		return $content;
 	}
@@ -43,9 +43,9 @@ class AuthController extends Controller {
 	 *
 	 * @return Response
 	 */
-	function person()
+	function person($id = null)
 	{
-		$content 								= $this->dispatch(new Getting(new Person, ['id' => Input::get('id'), 'CurrentWork' => '', 'checkwidget' => 'order'], ['created_at' => 'asc'],1, 1));
+		$content 								= $this->dispatch(new Getting(new Person, ['id' => $id, 'CurrentWork' => '', 'checkwidget' => 'order'], ['created_at' => 'asc'],1, 1));
 
 		return $content;
 	}

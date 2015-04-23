@@ -22,14 +22,13 @@ class WidgetController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store($personid)
+	public function store($personid, $attributes = null)
 	{
-		$personid 								= Input::get('attributes')['person']['id'];
-		$attributes 							= Input::get('attributes')['widget'];
+		$attributes 							= $attributes['widget'];
 
 		DB::beginTransaction();
 		
-		$content 								= $this->dispatch(new Saving(new PersonWidget, $attributes, null, new Person, $personid));
+		$content 								= $this->dispatch(new Saving(new PersonWidget, $attributes['widget'], null, new Person, $personid));
 
 		$is_success 							= json_decode($content);
 		if(!$is_success->meta->success)
