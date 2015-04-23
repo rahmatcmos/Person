@@ -22,17 +22,12 @@ class PersonTableSeeder extends Seeder
 			{
 				$data = new Person;
 				$data->fill([
-					'first_name'					=>$faker->firstName,
-					'middle_name'					=>$faker->firstName,
-					'last_name'						=>$faker->lastName,
-					'nick_name'						=>$faker->firstName,
-					'full_name'						=>$faker->name,
+					'name'							=>$faker->name,
 					'prefix_title'					=>$prefix[rand(0,2)],
 					'suffix_title'					=>$suffix[rand(0,10)],
 					'place_of_birth'				=>$faker->city,
 					'date_of_birth' 				=>$faker->date($format = 'Y-m-d', $max = 'now'), 
 					'gender' 						=>$gender[rand ( 0 , 1 )],
-					'username'						=>'user'.$index,
 					'password'						=>Hash::make('admin'),
 				]);
 
