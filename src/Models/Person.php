@@ -5,17 +5,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /* ----------------------------------------------------------------------
  * Document Model:
  * 	ID 								: Auto Increment, Integer, PK
- * 	first_name 						: Varchar, 255, Required
- * 	middle_name 					: Varchar, 255
- * 	last_name 						: Varchar, 255
- * 	nick_name 						: Varchar, 255, Required
- * 	full_name 						: Varchar, 255
+ * 	name 	 						: Varchar, 255, Required
  * 	prefix_title 					: Varchar, 255, Required
  * 	suffix_title 					: Varchar, 255, Required
  * 	place_of_birth 					: Varchar, 255, Required
  * 	date_of_birth 					: Date, Y-m-d, Required
  * 	gender 							: Enum Female or Male, Required
- *	username						: Varchar, 255
  *	password						: Varchar, 255
  *	avatar							: 
  *	created_at						: Timestamp
@@ -60,45 +55,30 @@ class Person extends BaseModel {
 
 	protected 	$table 				= 'persons';
 	protected 	$fillable			= [
-										'first_name' 					,
-										'middle_name' 					,
-										'last_name' 					,
-										'nick_name' 					,
-										'full_name' 					,
+										'name' 							,
 										'prefix_title' 					,
 										'suffix_title' 					,
 										'place_of_birth' 				,
 										'date_of_birth' 				,
 										'gender' 						,
-										'username'						,
 										'password'						,
 										'avatar'						,
 									];
 	protected	$dates 				= ['created_at', 'updated_at', 'deleted_at'];
 	protected 	$rules				= [
-										'first_name' 					=> 'required|max:255',
-										'middle_name' 					=> 'max:255',
-										'last_name' 					=> 'max:255',
-										'nick_name' 					=> 'required|max:255',
-										'full_name' 					=> 'max:255',
+										'name' 							=> 'required|max:255',
 										'prefix_title' 					=> 'max:255',
 										'suffix_title' 					=> 'max:255',
 										'place_of_birth' 				=> 'required|max:255',
 										'date_of_birth' 				=> 'required|date_format:"Y-m-d"',
 										'gender' 						=> 'required|in:female,male',
-										'username'						=> 'max:255',
 										'password'						=> 'max:255',
 									];
 	public $searchable 				= 	[
 											'id' 						=> 'ID', 
-											'firstname' 				=> 'FirstName', 
-											'lastname' 					=> 'LastName', 
 											'fullname' 					=> 'FullName', 
 											'prefixtitle' 				=> 'PrefixTitle', 
 											'suffixtitle' 				=> 'SuffixTitle', 
-											'orlastname' 				=> 'OrLastName', 
-											'orprefixtitle' 			=> 'OrPrefixTitle', 
-											'orsuffixtitle' 			=> 'OrSuffixTitle', 
 											'dateofbirth' 				=> 'DateOfBirth', 
 											'gender' 					=> 'Gender', 
 											'withattributes' 			=> 'WithAttributes',
@@ -169,19 +149,9 @@ class Person extends BaseModel {
 		return $query->where('id', $variable);
 	}
 
-	public function scopeFirstName($query, $variable)
-	{
-		return $query->where('first_name', 'like' ,'%'.$variable.'%');
-	}
-
-	public function scopeLastName($query, $variable)
-	{
-		return $query->where('last_name', 'like' ,'%'.$variable.'%');
-	}
-
 	public function scopeFullName($query, $variable)
 	{
-		return $query->where('full_name', 'like' ,'%'.$variable.'%');
+		return $query->where('name', 'like' ,'%'.$variable.'%');
 	}
 
 	public function scopePrefixTitle($query, $variable)
@@ -192,11 +162,6 @@ class Person extends BaseModel {
 	public function scopeSuffixTitle($query, $variable)
 	{
 		return $query->where('suffix_title', 'like' ,'%'.$variable.'%');
-	}
-
-	public function scopeOrLastName($query, $variable)
-	{
-		return $query->orwhere('last_name', 'like' ,'%'.$variable.'%');
 	}
 
 	public function scopeOrPrefixTitle($query, $variable)
