@@ -93,7 +93,7 @@ class Person extends BaseModel {
 											'checkcreate' 				=> 'CheckCreate',
 											'requireddocuments'	 		=> 'RequiredDocuments',
 										];
-	public $sortable 				= ['first_name', 'last_name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at'];
+	public $sortable 				= ['name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at'];
 
 	/* ---------------------------------------------------------------------------- CONSTRUCT ----------------------------------------------------------------------------*/
 	/**
