@@ -85,6 +85,8 @@ class Person extends BaseModel {
 											'currentwork' 				=> 'CurrentWork',
 											'currentworkon' 			=> 'CurrentWorkOn',
 											'currentcontact' 			=> 'CurrentContact',
+											'email'			 			=> 'Email',
+											'defaultemail' 				=> 'DefaultEmail',
 											'experiences' 				=> 'Experiences',
 											'checkrelation' 			=> 'CheckRelation',
 											'checkwork'	 				=> 'CheckWork',

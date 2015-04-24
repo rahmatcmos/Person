@@ -44,6 +44,7 @@ trait HasWorksTrait {
 		if(strtotime($variable))
 		{
 			$days = new DateTime($variable);
+			
 			return $query->whereHas('experiences', function($q)use($days){$q->where('end', '<', $days->format('Y-m-d'));});
 		}
 		return $query->whereHas('experiences', function($q)use($variable){$q->where('end', '<', $variable);});

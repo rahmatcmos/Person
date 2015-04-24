@@ -44,7 +44,7 @@ class PersonController extends Controller {
 	{
 		if(isset($attributes['person']['password']))
 		{
-			$attributes['password']				= Hash::make($attributes['person']['password']);
+			$attributes['person']['password']	= Hash::make($attributes['person']['password']);
 		}
 
 		DB::beginTransaction();
