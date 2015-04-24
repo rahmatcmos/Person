@@ -96,7 +96,7 @@ class Person extends BaseModel {
 											'checkcreate' 				=> 'CheckCreate',
 											'requireddocuments'	 		=> 'RequiredDocuments',
 										];
-	public $sortable 				= ['name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at'];
+	public $sortable 				= ['name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at', 'persons.created_at'];
 
 	/* ---------------------------------------------------------------------------- CONSTRUCT ----------------------------------------------------------------------------*/
 	/**
@@ -149,7 +149,7 @@ class Person extends BaseModel {
 
 	public function scopeID($query, $variable)
 	{
-		return $query->where('id', $variable);
+		return $query->where('persons.id', $variable);
 	}
 
 	public function scopeFullName($query, $variable)
@@ -191,6 +191,7 @@ class Person extends BaseModel {
 	{
 		return $query->where('gender', $variable);
 	}
+
 
 	public function scopeCheckCreate($query, $variable)
 	{
