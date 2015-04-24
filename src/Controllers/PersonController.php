@@ -31,7 +31,7 @@ class PersonController extends Controller {
 		$per_page 								= 12;
 	
 		$contents 								= $this->dispatch(new Getting(new Person, $search,  $sort,(int)$page, $per_page));
-		
+
 		return $contents;
 	}
 

@@ -92,6 +92,7 @@ class Person extends BaseModel {
 											'checkwork'	 				=> 'CheckWork',
 											'checkresign'	 			=> 'CheckResign',
 											'checkwidget'	 			=> 'CheckWidget',
+											'checkapps'	 				=> 'CheckApps',
 											'checkcreate' 				=> 'CheckCreate',
 											'requireddocuments'	 		=> 'RequiredDocuments',
 										];
