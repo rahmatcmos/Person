@@ -48,7 +48,7 @@ class DocumentController extends Controller {
 	{
 		$search['PersonID']						= $person_id;
 		$search['ID']							= $id;
-		$search['WithAttributes']				= ['details', 'details.template', 'document', 'person'];
+		$search['WithAttributes']				= ['details', 'details.template', 'document'];
 
 		$contents 								= $this->dispatch(new Getting(new PersonDocument, $search, ['created_at' => 'desc'] ,1, 1));
 		
