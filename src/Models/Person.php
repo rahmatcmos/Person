@@ -94,10 +94,13 @@ class Person extends BaseModel {
 											'checkwidget'	 			=> 'CheckWidget',
 											'checkapps'	 				=> 'CheckApps',
 											'checkcreate' 				=> 'CheckCreate',
+											'checkrelative' 			=> 'CheckRelative',
 											'groupcontacts' 			=> 'GroupContacts',
 											'requireddocuments'	 		=> 'RequiredDocuments',
 										];
 	public $sortable 				= ['name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at', 'persons.created_at'];
+	
+	protected $appends				= ['has_relatives', 'has_works', 'has_contacts'];
 
 	/* ---------------------------------------------------------------------------- CONSTRUCT ----------------------------------------------------------------------------*/
 	/**
@@ -143,6 +146,34 @@ class Person extends BaseModel {
 	/* ---------------------------------------------------------------------------- MUTATOR ---------------------------------------------------------------------------------*/
 
 	/* ---------------------------------------------------------------------------- ACCESSOR --------------------------------------------------------------------------------*/
+
+	public function getHasRelativesAttribute($value)
+	{
+		// dd($this->getRelations());exit;
+		if(isset($this->getRelations()['relatives']) && count($this->getRelations()['relatives']))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public function getHasWorksAttribute($value)
+	{
+		if(isset($this->getRelations()['works']) && count($this->getRelations()['works']))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	public function getHasContactsAttribute($value)
+	{
+		if(isset($this->getRelations()['contacts']) && count($this->getRelations()['contacts']))
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	
@@ -215,4 +246,5 @@ class Person extends BaseModel {
 
 		return $query->with($variable);
 	}
+
 }

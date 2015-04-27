@@ -30,8 +30,13 @@ trait HasRelativesTrait {
 
 	public function scopeCheckRelation($query, $variable)
 	{
-		return $query->select('persons.*', 'relatives.id as relative_id')
-					 ->join('relatives', 'persons.id', '=', 'relatives.person_id')
-					 ->where('relative_id', $variable);
+		return $query->select('persons.*', 'persons.id as relative_id')
+					 ->join('relatives', 'persons.id', '=', 'relatives.relative_id')
+					 ->where('person_id', $variable);
+	}
+
+	public function scopeCheckRelative($query, $variable)
+	{
+		return $query->with(['relatives' => function($q){$q->take(1);}]);
 	}
 }
