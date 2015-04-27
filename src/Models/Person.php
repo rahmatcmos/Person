@@ -94,6 +94,7 @@ class Person extends BaseModel {
 											'checkwidget'	 			=> 'CheckWidget',
 											'checkapps'	 				=> 'CheckApps',
 											'checkcreate' 				=> 'CheckCreate',
+											'groupcontacts' 			=> 'GroupContacts',
 											'requireddocuments'	 		=> 'RequiredDocuments',
 										];
 	public $sortable 				= ['name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at', 'persons.created_at'];

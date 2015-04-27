@@ -228,7 +228,7 @@ class PersonController extends Controller {
 	 */
 	public function show($id)
 	{
-		$content 								= $this->dispatch(new Getting(new Person,['ID' => $id, 'CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at'], ['created_at' => 'asc'] ,1, 1));
+		$content 								= $this->dispatch(new Getting(new Person,['ID' => $id, 'CurrentWork' => 'updated_at', 'CurrentContact' => 'item', 'Experiences' => 'created_at', 'requireddocuments' => 'documents.created_at', 'groupcontacts' => ''], ['created_at' => 'asc'] ,1, 1));
 		
 		return $content;
 	}
