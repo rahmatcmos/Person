@@ -56,7 +56,7 @@ trait HasWorksTrait {
 
 	public function scopeCurrentWork($query, $variable)
 	{
-		return $query->with(['works' => function($q){$q->whereNull('end')->orderBy('start', 'asc');}, 'works.branch.organisation' => function($q)use($variable){$q->where('organisations.name', 'like', '%'.$variable.'%');}]);
+		return $query->whereHas('works', function($q)use($variable){$q->whereNull('end')->orderBy('start', 'asc');})->with(['works.branch.organisation' => function($q)use($variable){$q->where('organisations.name', 'like', '%'.$variable.'%');}]);
 	}
 
 	public function scopeCheckApps($query, $variable)
