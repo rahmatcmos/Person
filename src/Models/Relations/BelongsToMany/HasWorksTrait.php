@@ -36,6 +36,10 @@ trait HasWorksTrait {
 			$days = new DateTime($variable);
 			return $query->whereHas('works', function($q)use($days){$q->where('start', '>=', $days->format('Y-m-d'));});
 		}
+		if($variable==false)
+		{
+			return $query->whereDoesntHave('works', function($q)use($variable){$q;});
+		}
 		return $query->whereHas('works', function($q)use($variable){$q;});
 	}
 

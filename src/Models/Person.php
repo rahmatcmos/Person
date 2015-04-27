@@ -149,7 +149,6 @@ class Person extends BaseModel {
 
 	public function getHasRelativesAttribute($value)
 	{
-		// dd($this->getRelations());exit;
 		if(isset($this->getRelations()['relatives']) && count($this->getRelations()['relatives']))
 		{
 			return true;
