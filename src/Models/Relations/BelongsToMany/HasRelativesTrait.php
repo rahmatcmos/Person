@@ -24,15 +24,16 @@ trait HasRelativesTrait {
 
 	public function Person()
 	{
-		return $this->belongsToMany('ThunderID\Person\Models\Person', 'relatives', 'person_id', 'relative_id')
+		return $this->belongsToMany('ThunderID\Person\Models\Person', 'relatives', 'relative_id', 'person_id')
 				->withPivot('relationship', 'organisation_id');
 	}
 
 	public function scopeCheckRelation($query, $variable)
 	{
-		return $query->select('persons.*', 'persons.id as relative_id')
+		return $query->select('persons.*', 'persons.id as relative_id', 'relatives.relationship as relationship')
 					 ->join('relatives', 'persons.id', '=', 'relatives.relative_id')
-					 ->where('person_id', $variable);
+					 ->where('person_id', $variable)
+					 ->whereNull('relatives.deleted_at');
 	}
 
 	public function scopeCheckRelative($query, $variable)

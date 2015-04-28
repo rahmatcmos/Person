@@ -142,6 +142,7 @@ class PersonController extends Controller {
 				{
 					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, null, new Person, $is_success->data->id, ['relationship' => $value['relationship'], 'organisation_id' => $value['organisation_id']]));
 				}
+
 				$is_success_2 				= json_decode($saved_relative);
 				if(!$is_success_2->meta->success)
 				{
@@ -256,13 +257,13 @@ class PersonController extends Controller {
 
 	public function relativedestroy($person_id, $id)
 	{
-		$content 							= $this->dispatch(new Getting(new Relative,['relativeid' => $person_id], ['created_at' => 'asc'] ,1, 1));
+		$content 							= $this->dispatch(new Getting(new Relative,['personid' => $person_id], ['created_at' => 'asc'] ,1, 1));
 
 		$result 							= json_decode($content);
 		
 		if($result->meta->success)
 		{
-			$content 						= $this->dispatch(new Deleting(new Relative, $id));
+			$content 						= $this->dispatch(new Deleting(new Relative, $result->data->id));
 		} 						
 	
 		return $content;
