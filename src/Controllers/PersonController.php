@@ -6,6 +6,7 @@ use \ThunderID\Person\Models\Relative;
 use \ThunderID\Doclate\Models\PersonDocument;
 use \ThunderID\Doclate\Models\DocumentDetail;
 use \ThunderID\Work\Models\Work;
+use \ThunderID\Schedule\Models\PersonSchedule;
 use \ThunderID\Contact\Models\Contact;
 use \ThunderID\Commoquent\Getting;
 use \ThunderID\Commoquent\Saving;
@@ -216,6 +217,31 @@ class PersonController extends Controller {
 			}
 		}
 
+		if(isset($attributes['schedules']))
+		{
+			foreach ($attributes['schedules'] as $key => $value) 
+			{
+				$schedule					= $value;
+				
+				if(isset($value['id']) && $value['id']!='' && !is_null($value['id']))
+				{
+					$schedule['id']			= $value['id'];
+				}
+				else
+				{
+					$schedule['id']			= null;
+				}
+
+				$saved_schedule 			= $this->dispatch(new Saving(new PersonSchedule, $schedule, $schedule['id'], new Person, $is_success->data->id));
+
+				$is_success_2 				= json_decode($saved_schedule);
+				if(!$is_success_2->meta->success)
+				{
+					DB::rollback();
+					return $saved_schedule;
+				}
+			}
+		}
 		DB::commit();
 
 		return $content;
