@@ -49,6 +49,7 @@ class Person extends BaseModel {
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasDocumentsTrait;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasWorksTrait;
 	use \ThunderID\Person\Models\Relations\MorphMany\HasContactsTrait;
+	use \ThunderID\Person\Models\Relations\HasMany\HasWorkleavesTrait;
 	use \ThunderID\Person\Models\Relations\HasMany\HasWidgetsTrait;
 
 	public 		$timestamps 		= true;
@@ -86,6 +87,7 @@ class Person extends BaseModel {
 											'currentworkon' 			=> 'CurrentWorkOn',
 											'currentcontact' 			=> 'CurrentContact',
 											'email'			 			=> 'Email',
+											'workleave'					=> 'Workleave',
 											'defaultemail' 				=> 'DefaultEmail',
 											'experiences' 				=> 'Experiences',
 											'checkrelation' 			=> 'CheckRelation',
