@@ -78,4 +78,14 @@ trait HasWorksTrait {
 	{
 		return $query->with(['experiences' => function($q)use($variable){$q->orderBy($variable, 'asc')->take(10);}, 'experiences.branch.organisation']);
 	}
+
+	public function ScopeWorkCalendar($query, $variable)
+	{
+		return $query->whereHas('works.calendars' ,function($q)use($variable){$q->follow($variable['start']);});
+	}
+
+	public function ScopeWorkCalendarSchedule($query, $variable)
+	{
+		return $query->whereHas('works.calendars.schedules' ,function($q)use($variable){$q->ondate($variable['on']);});
+	}
 }

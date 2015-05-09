@@ -47,9 +47,10 @@ class Person extends BaseModel {
 	use SoftDeletes;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasRelativesTrait;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasDocumentsTrait;
+	use \ThunderID\Person\Models\Relations\BelongsToMany\HasCalendarsTrait;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasWorksTrait;
 	use \ThunderID\Person\Models\Relations\MorphMany\HasContactsTrait;
-	use \ThunderID\Person\Models\Relations\HasMany\HasWorkleavesTrait;
+	use \ThunderID\Person\Models\Relations\HasMany\HasSchedulesTrait;
 	use \ThunderID\Person\Models\Relations\HasMany\HasWidgetsTrait;
 
 	public 		$timestamps 		= true;
