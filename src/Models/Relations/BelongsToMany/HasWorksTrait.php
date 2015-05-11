@@ -81,11 +81,30 @@ trait HasWorksTrait {
 
 	public function ScopeWorkCalendar($query, $variable)
 	{
+		if(isset($variable['id']))
+		{
+			return $query->whereHas('works' ,function($q)use($variable){$q->join('follows','follows.chart_id','=','works.chart_id')->where('calendar_id', $variable['id'])->where('follows.start', '<=', date('Y-m-d', strtotime($variable['start'])));});
+		}
 		return $query->whereHas('works.calendars' ,function($q)use($variable){$q->follow($variable['start']);});
 	}
 
 	public function ScopeWorkCalendarSchedule($query, $variable)
 	{
 		return $query->whereHas('works.calendars.schedules' ,function($q)use($variable){$q->ondate($variable['on']);});
+	}
+
+
+	public function ScopeCheckWorkleave($query, $variable)
+	{
+		if(strtotime($variable))
+		{
+			$days = new DateTime($variable);
+			return $query->whereHas('works.workleaves', function($q)use($days){$q->ondate([$days->format('Y-m-d'), $days->format('Y-m-d')]);});
+		}
+		if($variable==false)
+		{
+			return $query->whereDoesntHave('works.workleaves', function($q)use($variable){$q;});
+		}
+		return $query->whereHas('works.workleaves', function($q)use($variable){$q;});
 	}
 }
