@@ -29,6 +29,11 @@ trait HasWorksTrait {
 					->withPivot('status', 'start', 'end', 'reason_end_job');
 	}
 
+	public function WorksCalendars()
+	{
+		return $this->hasMany('ThunderID\Work\Models\Work');
+	}
+
 	public function scopeCheckWork($query, $variable)
 	{
 		if(strtotime($variable))
@@ -83,14 +88,14 @@ trait HasWorksTrait {
 	{
 		if(isset($variable['id']))
 		{
-			return $query->whereHas('works' ,function($q)use($variable){$q->join('calendars','calendars.id','=','works.calendar_id')->where('calendar_id', $variable['id']);});
+			return $query->whereHas('workscalendars.calendar' ,function($q)use($variable){$q->where('calendar_id', $variable['id']);});
 		}
-		return $query->whereHas('works.calendar' ,function($q)use($variable){$q;});
+		return $query->whereHas('workscalendars' ,function($q)use($variable){$q;});
 	}
 
 	public function ScopeWorkCalendarSchedule($query, $variable)
 	{
-		return $query->whereHas('works.calendars.schedules' ,function($q)use($variable){$q->ondate($variable['on']);});
+		return $query->whereHas('workscalendars.calendar.schedules' ,function($q)use($variable){$q->ondate($variable['on']);});
 	}
 
 
