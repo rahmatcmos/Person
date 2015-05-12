@@ -83,9 +83,9 @@ trait HasWorksTrait {
 	{
 		if(isset($variable['id']))
 		{
-			return $query->whereHas('works' ,function($q)use($variable){$q->join('follows','follows.chart_id','=','works.chart_id')->where('calendar_id', $variable['id'])->where('follows.start', '<=', date('Y-m-d', strtotime($variable['start'])));});
+			return $query->whereHas('works' ,function($q)use($variable){$q->join('calendars','calendars.id','=','works.calendar_id')->where('calendar_id', $variable['id']);});
 		}
-		return $query->whereHas('works.calendars' ,function($q)use($variable){$q->follow($variable['start']);});
+		return $query->whereHas('works.calendar' ,function($q)use($variable){$q;});
 	}
 
 	public function ScopeWorkCalendarSchedule($query, $variable)
