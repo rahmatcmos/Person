@@ -19,7 +19,7 @@ class AuthController extends Controller {
 	 *
 	 * @return Response
 	 */
-	function user($email = null, $password = null)
+	public function user($email = null, $password = null)
 	{
 		$content 								= $this->dispatch(new Checking(new Person, ['email' => $email, 'password' => $password]));
 
@@ -31,7 +31,7 @@ class AuthController extends Controller {
 	 *
 	 * @return Response
 	 */
-	function api()
+	public function api()
 	{
 		$content 								= $this->dispatch(new Checking(new Authentication, ['client' => Input::get('client'), 'secret' => Input::get('secret')]));
 
@@ -43,7 +43,7 @@ class AuthController extends Controller {
 	 *
 	 * @return Response
 	 */
-	function person($id = null)
+	public function person($id = null)
 	{
 		$content 								= $this->dispatch(new Getting(new Person, ['id' => $id, 'CurrentWork' => '', 'defaultemail' => true], ['created_at' => 'asc'],1, 1));
 
@@ -55,7 +55,7 @@ class AuthController extends Controller {
 	 *
 	 * @return Response
 	 */
-	function organisation()
+	public function organisation()
 	{
 		$content 								= $this->dispatch(new Getting(new Organisation, ['id' => Input::get('id')], 1, 1));
 

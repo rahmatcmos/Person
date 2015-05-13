@@ -50,12 +50,13 @@ class WidgetController extends Controller {
 	 */
 	public function destroy($person_id, $id)
 	{
-		$content 							= $this->dispatch(new Getting(new PersonWidget,['personid' => $person_id, 'ID' => $id], ['created_at' => 'asc'] ,1, 1));
-		$result 							= json_decode($content);
+		$content 								= $this->dispatch(new Getting(new PersonWidget,['personid' => $person_id, 'ID' => $id], ['created_at' => 'asc'] ,1, 1));
+	
+		$result 								= json_decode($content);
 		
 		if($result->meta->success)
 		{
-			$content 						= $this->dispatch(new Deleting(new PersonWidget, $id));
+			$content 							= $this->dispatch(new Deleting(new PersonWidget, $id));
 		} 						
 	
 		return $content;

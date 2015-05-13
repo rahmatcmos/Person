@@ -27,10 +27,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 	}
 
 	//other package
-	2 Relationships belongsToMany 
+	3 Relationships belongsToMany 
 	{
 		Documents
 		Works
+		Calendars
+	}
+
+	2 Relationships hasMany 
+	{
+		Widgets
+		Schedules
 	}
 
 	1 Relationship morphMany 
@@ -38,6 +45,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 		Contacts
 	}
 
+	1 Relationship hasOne 
+	{
+		Finger
+	}
  * ---------------------------------------------------------------------- */
 
 use Str, Validator, DateTime, Exception;
@@ -52,58 +63,64 @@ class Person extends BaseModel {
 	use \ThunderID\Person\Models\Relations\MorphMany\HasContactsTrait;
 	use \ThunderID\Person\Models\Relations\HasMany\HasSchedulesTrait;
 	use \ThunderID\Person\Models\Relations\HasMany\HasWidgetsTrait;
+	use \ThunderID\Person\Models\Relations\HasOne\HasFingerTrait;
 
-	public 		$timestamps 		= true;
+	public 		$timestamps 		= 	true;
 
-	protected 	$table 				= 'persons';
-	protected 	$fillable			= [
-										'name' 							,
-										'prefix_title' 					,
-										'suffix_title' 					,
-										'place_of_birth' 				,
-										'date_of_birth' 				,
-										'gender' 						,
-										'password'						,
-										'avatar'						,
-									];
-	protected	$dates 				= ['created_at', 'updated_at', 'deleted_at'];
-	protected 	$rules				= [
-										'name' 							=> 'required|max:255',
-										'prefix_title' 					=> 'max:255',
-										'suffix_title' 					=> 'max:255',
-										'place_of_birth' 				=> 'required|max:255',
-										'date_of_birth' 				=> 'required|date_format:"Y-m-d"',
-										'gender' 						=> 'required|in:female,male',
-										'password'						=> 'max:255',
-									];
-	public $searchable 				= 	[
-											'id' 						=> 'ID', 
-											'fullname' 					=> 'FullName', 
-											'prefixtitle' 				=> 'PrefixTitle', 
-											'suffixtitle' 				=> 'SuffixTitle', 
-											'dateofbirth' 				=> 'DateOfBirth', 
-											'gender' 					=> 'Gender', 
-											'withattributes' 			=> 'WithAttributes',
-											'currentwork' 				=> 'CurrentWork',
-											'currentworkon' 			=> 'CurrentWorkOn',
-											'currentcontact' 			=> 'CurrentContact',
-											'email'			 			=> 'Email',
-											'workleave'					=> 'Workleave',
-											'defaultemail' 				=> 'DefaultEmail',
-											'experiences' 				=> 'Experiences',
-											'checkrelation' 			=> 'CheckRelation',
-											'checkwork'	 				=> 'CheckWork',
-											'checkresign'	 			=> 'CheckResign',
-											'checkwidget'	 			=> 'CheckWidget',
-											'checkapps'	 				=> 'CheckApps',
-											'checkcreate' 				=> 'CheckCreate',
-											'checkrelative' 			=> 'CheckRelative',
-											'groupcontacts' 			=> 'GroupContacts',
-											'requireddocuments'	 		=> 'RequiredDocuments',
+	protected 	$table 				= 	'persons';
+
+	protected 	$fillable			= 	[
+											'name' 							,
+											'prefix_title' 					,
+											'suffix_title' 					,
+											'place_of_birth' 				,
+											'date_of_birth' 				,
+											'gender' 						,
+											'password'						,
+											'avatar'						,
 										];
-	public $sortable 				= ['name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at', 'persons.created_at'];
+
+	protected	$dates 				= 	['created_at', 'updated_at', 'deleted_at'];
+
+	protected 	$rules				= 	[
+											'name' 							=> 'required|max:255',
+											'prefix_title' 					=> 'max:255',
+											'suffix_title' 					=> 'max:255',
+											'place_of_birth' 				=> 'required|max:255',
+											'date_of_birth' 				=> 'required|date_format:"Y-m-d"',
+											'gender' 						=> 'required|in:female,male',
+											'password'						=> 'max:255',
+										];
+
+	public $searchable 				= 	[
+											'id' 							=> 'ID', 
+											'fullname' 						=> 'FullName', 
+											'prefixtitle' 					=> 'PrefixTitle', 
+											'suffixtitle' 					=> 'SuffixTitle', 
+											'dateofbirth' 					=> 'DateOfBirth', 
+											'gender' 						=> 'Gender', 
+											'withattributes' 				=> 'WithAttributes',
+											'currentwork' 					=> 'CurrentWork',
+											'currentworkon' 				=> 'CurrentWorkOn',
+											'currentcontact' 				=> 'CurrentContact',
+											'email'			 				=> 'Email',
+											'workleave'						=> 'Workleave',
+											'defaultemail' 					=> 'DefaultEmail',
+											'experiences' 					=> 'Experiences',
+											'checkrelation' 				=> 'CheckRelation',
+											'checkwork'	 					=> 'CheckWork',
+											'checkresign'	 				=> 'CheckResign',
+											'checkwidget'	 				=> 'CheckWidget',
+											'checkapps'	 					=> 'CheckApps',
+											'checkcreate' 					=> 'CheckCreate',
+											'checkrelative' 				=> 'CheckRelative',
+											'groupcontacts' 				=> 'GroupContacts',
+											'requireddocuments'	 			=> 'RequiredDocuments',
+										];
+
+	public $sortable 				= 	['name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at', 'persons.created_at'];
 	
-	protected $appends				= ['has_relatives', 'has_works', 'has_contacts'];
+	protected $appends				= 	['has_relatives', 'has_works', 'has_contacts'];
 
 	/* ---------------------------------------------------------------------------- CONSTRUCT ----------------------------------------------------------------------------*/
 	/**

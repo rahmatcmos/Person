@@ -4,19 +4,12 @@ use \Validator;
 
 /* ----------------------------------------------------------------------
  * Event:
- * 	Creating						
  * 	Saving						
- * 	Updating						
  * 	Deleting						
  * ---------------------------------------------------------------------- */
 
 class PersonObserver 
 {
-	public function creating($model)
-	{
-		//
-	}
-
 	public function saving($model)
 	{
 		$validator 				= Validator::make($model['attributes'], $model['rules']);
@@ -33,17 +26,12 @@ class PersonObserver
 		}
 	}
 
-	public function updating($model)
-	{
-		//
-	}
-
 	public function deleting($model)
 	{
 		//
-		if($model->works->count())
+		if($model->works->count() || $model->contacts->count() || $model->relatives->count())
 		{
-			$model['errors'] 	= ['Tidak dapat menghapus karyawan yang memiliki pekerjaan'];
+			$model['errors'] 	= ['Tidak dapat menghapus data personalia yang memiliki pekerjaan atau informasi kontak atau relasi dengan karyawan'];
 
 			return false;
 		}

@@ -45,22 +45,19 @@ seed (run in windows)
 /* ----------------------------------------------------------------------
  * Document Model:
  * 	ID 								: Auto Increment, Integer, PK
- * 	first_name 						: Varchar, 255, Required
- * 	middle_name 					: Varchar, 255
- * 	last_name 						: Varchar, 255
- * 	nick_name 						: Varchar, 255, Required
- * 	full_name 						: Varchar, 255
+ * 	name 	 						: Varchar, 255, Required
  * 	prefix_title 					: Varchar, 255, Required
  * 	suffix_title 					: Varchar, 255, Required
  * 	place_of_birth 					: Varchar, 255, Required
  * 	date_of_birth 					: Date, Y-m-d, Required
  * 	gender 							: Enum Female or Male, Required
- *	username						: Varchar, 255
  *	password						: Varchar, 255
  *	avatar							: 
  *	created_at						: Timestamp
  * 	updated_at						: Timestamp
  * 	deleted_at						: Timestamp
+ * ---------------------------------------------------------------------- */
+
 /* ----------------------------------------------------------------------
  * Document Relationship :
  * 	//this package
@@ -70,16 +67,29 @@ seed (run in windows)
 	}
 
 	//other package
-	2 Relationships belongsToMany 
+	3 Relationships belongsToMany 
 	{
 		Documents
 		Works
+		Calendars
+	}
+
+	2 Relationships hasMany 
+	{
+		Widgets
+		Schedules
 	}
 
 	1 Relationship morphMany 
 	{
 		Contacts
 	}
+
+	1 Relationship hasOne 
+	{
+		Finger
+	}
+
 /* ----------------------------------------------------------------------
  * Document Fillable :
  * 	first_name
@@ -97,26 +107,34 @@ seed (run in windows)
 	avatar
 
 /* ----------------------------------------------------------------------
+ * Document Observe :
+ 	delete 							: cannot delete person has contacts or relatives or works
+
+/* ----------------------------------------------------------------------
  * Document Searchable :
  * 	id 								: Search by id, parameter => string, id
-  	firstname 						: Search by firstname, parameter => string, firstname
-  	lastname 						: Search by lastname, parameter => string, lastname
   	fullname 						: Search by fullname, parameter => string, fullname
   	prefixtitle 					: Search by prefixtitle, parameter => string, prefixtitle
   	suffixtitle 					: Search by suffixtitle, parameter => string, suffixtitle
-  	orlastname 						: Search by or lastname, parameter => string, lastname
-  	orprefixtitle 					: Search by or prefixtitle, parameter => string, prefixtitle
-  	orsuffixtitle 					: Search by or suffixtitle, parameter => string, suffixtitle
   	dateofbirth 					: Search by dateofbirth, parameter => string, dateofbirth
+  	gender 							: Search by gender, parameter => string, gender
 	withattributes					: Search with relationship, parameter => array of relationship (ex : ['relatives'], if relationship is belongsTo then return must be single object, if hasMany or belongsToMany then return must be plural object)
   	currentwork 					: With active works and branch organisation and applications
+  	currentworkon 					: With active works and branch organisation and applications and default work
   	currentcontact 					: With default contacts of each type
+  	email 							: Where has email, parameter => email
+  	workleave 						: With special schedule of workleave
+  	defaultemail 					: Get default email
   	experiences 					: With previous experiences and organisation
   	checkrelation 					: With relatives, parameter : relative_id
   	checkwork 						: With works that start after some days, parameter : start date (in english context)
+  	checkwidget 					: Where has widgets that belongsto person
+  	checkapps						: With application allowed for user, 
   	checkresign 					: With works that end after some days, parameter : end date (in english context)
   	checkwidget 					: With widgets, parameter : order
   	checkcreate 					: Search by created_at after some days, parameter : created at (in english context)
+  	checkrelative 					: Take only one relative
+  	groupcontacts 					: With contacts group by item
   	requireddocuments 				: With required documents and templates, parameter : order
 
 /* ----------------------------------------------------------------------

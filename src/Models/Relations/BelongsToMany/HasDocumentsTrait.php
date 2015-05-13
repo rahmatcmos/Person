@@ -14,7 +14,7 @@ trait HasDocumentsTrait {
 		//
 	}
 
-	/* ------------------------------------------------------------------- RELATIONSHIP IN DOCUMENT PACKAGE -------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------- RELATIONSHIP IN DOCLATE PACKAGE -------------------------------------------------------------------*/
 	public function Documents()
 	{
 		return $this->belongsToMany('ThunderID\Doclate\Models\Document', 'persons_documents', 'person_id', 'document_id')

@@ -17,9 +17,9 @@ class RelativeTableSeeder extends Seeder
 
 			foreach(range(1, $total_person) as $index)
 			{
-				$data 		= Person::find($index);
+				$data 								= Person::find($index);
 
-				$relative 	= Person::find(rand(1,$total_person));
+				$relative 							= Person::find(rand(1,$total_person));
 
 				if (!$data->relatives()->save($relative, ['relationship' => $relationship[rand(0,3)]]))
 				{

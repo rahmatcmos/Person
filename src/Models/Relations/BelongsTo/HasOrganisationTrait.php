@@ -14,7 +14,7 @@ trait HasOrganisationTrait {
 		//
 	}
 
-	/* ------------------------------------------------------------------- RELATIONSHIP IN DOCUMENT PACKAGE -------------------------------------------------------------------*/
+	/* ------------------------------------------------------------------- RELATIONSHIP IN ORGANISATION PACKAGE -------------------------------------------------------------------*/
 	public function Organisation()
 	{
 		return $this->belongsTo('ThunderID\Organisation\Models\Organisation');
