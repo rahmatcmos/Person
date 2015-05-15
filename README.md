@@ -120,7 +120,6 @@ seed (run in windows)
   	gender 							: Search by gender, parameter => string, gender
 	withattributes					: Search with relationship, parameter => array of relationship (ex : ['relatives'], if relationship is belongsTo then return must be single object, if hasMany or belongsToMany then return must be plural object)
   	currentwork 					: With active works and branch organisation and applications
-  	currentworkon 					: With active works and branch organisation and applications and default work
   	currentcontact 					: With default contacts of each type
   	email 							: Where has email, parameter => email
   	workleave 						: With special schedule of workleave
@@ -135,6 +134,8 @@ seed (run in windows)
   	checkcreate 					: Search by created_at after some days, parameter : created at (in english context)
   	checkrelative 					: Take only one relative
   	groupcontacts 					: With contacts group by item
+  	branchname 						: Where branch name is like something
+  	charttag 						: Where chart tag is like something
   	requireddocuments 				: With required documents and templates, parameter : order
 
 /* ----------------------------------------------------------------------

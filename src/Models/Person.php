@@ -101,7 +101,6 @@ class Person extends BaseModel {
 											'gender' 						=> 'Gender', 
 											'withattributes' 				=> 'WithAttributes',
 											'currentwork' 					=> 'CurrentWork',
-											'currentworkon' 				=> 'CurrentWorkOn',
 											'currentcontact' 				=> 'CurrentContact',
 											'email'			 				=> 'Email',
 											'workleave'						=> 'Workleave',
@@ -115,6 +114,8 @@ class Person extends BaseModel {
 											'checkcreate' 					=> 'CheckCreate',
 											'checkrelative' 				=> 'CheckRelative',
 											'groupcontacts' 				=> 'GroupContacts',
+											'charttag' 						=> 'ChartTag', 
+											'branchname' 					=> 'BranchName', 
 											'requireddocuments'	 			=> 'RequiredDocuments',
 										];
 

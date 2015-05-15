@@ -34,6 +34,7 @@ trait HasSchedulesTrait {
 	public function ScopeWorkleave($query, $variable)
 	{
 		return $query->whereHas('workleaves' ,function($q)use($variable){$q->status($variable['status'])->ondate($variable['on']);})
-					->whereHas('works' ,function($q)use($variable){$q->id($variable['chartid']);});
+					->whereHas('works' ,function($q)use($variable){$q->id($variable['chartid']);})
+					->with(['workleaves' => function($q)use($variable){$q->status($variable['status'])->ondate($variable['on']);}]);
 	}
 }

@@ -23,7 +23,7 @@ trait HasWorkleavesTrait {
 
 	public function ScopeWorkleave($query, $variable)
 	{
-		return $query->whereHas('workleaves' ,function($q)use($variable){$q->name($variable['name'])->ondate($variable['on']);})
+		return $query->whereHas('workleaves' ,function($q)use($variable){$q->status($variable['status'])->ondate($variable['on']);})
 					->whereHas('works' ,function($q)use($variable){$q->id($variable['chartid']);});
 	}
 }

@@ -69,14 +69,14 @@ trait HasWorksTrait {
 		return $query->with(['works.applications']);
 	}
 
-	public function scopeCurrentWorkOn($query, $variable)
+	public function scopeBranchName($query, $variable)
 	{
-		if(is_array($variable) && count($variable)==2)
-		{
-			return $query->whereHas('works.branch', function($q)use($variable){$q->where('branches.name', 'like', '%'.$variable[0].'%')->where('charts.tag', 'like', '%'.$variable[1].'%');});
-		}
+		return $query->whereHas('works.branch', function($q)use($variable){$q->where('name', 'like', '%'.$variable.'%');});
+	}
 
-		return $query->whereHas('works.branch', function($q)use($variable){$q->where('branches.name', 'like', '%'.$variable.'%');});
+	public function scopeChartTag($query, $variable)
+	{
+		return $query->WhereHas('works', function($q)use($variable){$q->where('tag', 'like', '%'.$variable.'%');});
 	}
 
 	public function scopeExperiences($query, $variable)
@@ -88,7 +88,7 @@ trait HasWorksTrait {
 	{
 		if(isset($variable['id']))
 		{
-			return $query->whereHas('workscalendars.calendar' ,function($q)use($variable){$q->where('calendar_id', $variable['id']);});
+			return $query->whereHas('workscalendars' ,function($q)use($variable){$q->where('calendar_id', $variable['id']);});
 		}
 		return $query->whereHas('workscalendars' ,function($q)use($variable){$q;});
 	}
