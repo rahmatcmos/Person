@@ -116,6 +116,7 @@ class Person extends BaseModel {
 											'groupcontacts' 				=> 'GroupContacts',
 											'charttag' 						=> 'ChartTag', 
 											'branchname' 					=> 'BranchName', 
+											'displayupdatedfinger'			=> 'DisplayUpdatedFinger',
 											'requireddocuments'	 			=> 'RequiredDocuments',
 										];
 
