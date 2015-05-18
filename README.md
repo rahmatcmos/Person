@@ -136,6 +136,7 @@ seed (run in windows)
   	groupcontacts 					: With contacts group by item
   	branchname 						: Where branch name is like something
   	charttag 						: Where chart tag is like something
+  	fullschedule 					: Looking for report in single date, parameter -> date on
   	requireddocuments 				: With required documents and templates, parameter : order
 
 /* ----------------------------------------------------------------------

@@ -97,19 +97,4 @@ trait HasWorksTrait {
 	{
 		return $query->whereHas('workscalendars.calendar.schedules' ,function($q)use($variable){$q->ondate($variable['on']);});
 	}
-
-
-	public function ScopeCheckWorkleave($query, $variable)
-	{
-		if(strtotime($variable))
-		{
-			$days = new DateTime($variable);
-			return $query->whereHas('works.workleaves', function($q)use($days){$q->ondate([$days->format('Y-m-d'), $days->format('Y-m-d')]);});
-		}
-		if($variable==false)
-		{
-			return $query->whereDoesntHave('works.workleaves', function($q)use($variable){$q;});
-		}
-		return $query->whereHas('works.workleaves', function($q)use($variable){$q;});
-	}
 }

@@ -18,7 +18,7 @@ class PersonTableSeeder extends Seeder
 		$suffix 									= ['MT.', 'MSc.', 'BSc.', 'MSi.', 'BSi.', 'SE.', 'PhD.', 'SH.', 'SKom.', 'ST.', 'BA.'];
 		try
 		{
-			foreach(range(1, 1000) as $index)
+			foreach(range(1, 50) as $index)
 			{
 				$data = new Person;
 				$data->fill([

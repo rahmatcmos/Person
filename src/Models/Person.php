@@ -34,10 +34,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 		Calendars
 	}
 
-	2 Relationships hasMany 
+	3 Relationships hasMany 
 	{
 		Widgets
 		Schedules
+		PersonWorkleaves
 	}
 
 	1 Relationship morphMany 
@@ -62,6 +63,7 @@ class Person extends BaseModel {
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasWorksTrait;
 	use \ThunderID\Person\Models\Relations\MorphMany\HasContactsTrait;
 	use \ThunderID\Person\Models\Relations\HasMany\HasSchedulesTrait;
+	use \ThunderID\Person\Models\Relations\HasMany\HasPersonWorkleavesTrait;
 	use \ThunderID\Person\Models\Relations\HasMany\HasWidgetsTrait;
 	use \ThunderID\Person\Models\Relations\HasOne\HasFingerTrait;
 
@@ -103,7 +105,7 @@ class Person extends BaseModel {
 											'currentwork' 					=> 'CurrentWork',
 											'currentcontact' 				=> 'CurrentContact',
 											'email'			 				=> 'Email',
-											'workleave'						=> 'Workleave',
+											'takenworkleave'				=> 'TakenWorkleave',
 											'defaultemail' 					=> 'DefaultEmail',
 											'experiences' 					=> 'Experiences',
 											'checkrelation' 				=> 'CheckRelation',
@@ -116,6 +118,7 @@ class Person extends BaseModel {
 											'groupcontacts' 				=> 'GroupContacts',
 											'charttag' 						=> 'ChartTag', 
 											'branchname' 					=> 'BranchName', 
+											'fullschedule' 					=> 'FullSchedule', 
 											'displayupdatedfinger'			=> 'DisplayUpdatedFinger',
 											'requireddocuments'	 			=> 'RequiredDocuments',
 										];
