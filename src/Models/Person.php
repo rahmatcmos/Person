@@ -120,10 +120,12 @@ class Person extends BaseModel {
 											'branchname' 					=> 'BranchName', 
 											'fullschedule' 					=> 'FullSchedule', 
 											'displayupdatedfinger'			=> 'DisplayUpdatedFinger',
+											'quotas'						=> 'Quotas',
+											'minusquotas'					=> 'MinusQuotas',
 											'requireddocuments'	 			=> 'RequiredDocuments',
 										];
 
-	public $sortable 				= 	['name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at', 'persons.created_at'];
+	public $sortable 				= 	['name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at', 'persons.created_at', 'persons.id'];
 	
 	protected $appends				= 	['has_relatives', 'has_works', 'has_contacts'];
 

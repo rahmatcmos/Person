@@ -137,6 +137,8 @@ seed (run in windows)
   	branchname 						: Where branch name is like something
   	charttag 						: Where chart tag is like something
   	fullschedule 					: Looking for report in single date, parameter -> date on
+  	quotas 							: Looking for report of default workleave qoutas in date range, parameter array -> date ondate
+  	minusquotas 					: Looking for report of additional workleave qoutas in date range, parameter array -> date ondate
   	requireddocuments 				: With required documents and templates, parameter : order
 
 /* ----------------------------------------------------------------------

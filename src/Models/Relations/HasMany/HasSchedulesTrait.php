@@ -69,4 +69,18 @@ trait HasSchedulesTrait {
                     ->groupBy('persons.id')
 					;
 	}
+
+	public function ScopeMinusQuotas($query, $variable)
+	{
+		return $query->selectRaw('sum(is_affect_salary) as minus_quota')
+					->selectRaw('status')
+					->selectRaw('person_id')
+					->join('person_schedules', 'persons.id', '=', 'person_schedules.person_id')
+					->whereIn('persons.id', $variable['ids'])
+					->where('person_schedules.on', '>=', date('Y-m-d',strtotime($variable['ondate'][0])))
+					->where('person_schedules.on', '<=', date('Y-m-d',strtotime($variable['ondate'][1])))
+					->where('is_affect_salary', true)
+					->groupBy('status')
+					->groupBy('persons.id');
+	}
 }
