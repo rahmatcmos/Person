@@ -28,7 +28,7 @@ trait HasFingerTrait {
 					->join('fingers', 'persons.id', '=', 'fingers.person_id')
 					->where('contacts.item', 'email')
 					->where('contacts.is_default', true)
-					->where('fingers.updated_at', '>=', $variable)
+					->where('fingers.updated_at', '>', $variable)
 					;
 	}
 }
