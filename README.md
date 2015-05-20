@@ -122,7 +122,8 @@ seed (run in windows)
   	currentwork 					: With active works and branch organisation and applications
   	currentcontact 					: With default contacts of each type
   	email 							: Where has email, parameter => email
-  	workleave 						: With special schedule of workleave
+  	takenworkleave 					: With special schedule of workleave, parameter : status and ondate
+  	checktakenworkleave				: Check takenworkleave, same parameter as takenworkleave
   	defaultemail 					: Get default email
   	experiences 					: With previous experiences and organisation
   	checkrelation 					: With relatives, parameter : relative_id
@@ -133,12 +134,14 @@ seed (run in windows)
   	checkwidget 					: With widgets, parameter : order
   	checkcreate 					: Search by created_at after some days, parameter : created at (in english context)
   	checkrelative 					: Take only one relative
+  	checkworkleave 					: Check person workleave in time, paramater : on date
   	groupcontacts 					: With contacts group by item
   	branchname 						: Where branch name is like something
   	charttag 						: Where chart tag is like something
   	fullschedule 					: Looking for report in single date, parameter -> date on
   	quotas 							: Looking for report of default workleave qoutas in date range, parameter array -> date ondate
   	minusquotas 					: Looking for report of additional workleave qoutas in date range, parameter array -> date ondate
+  	workleaveid 					: with person workleave has id, parameter workleave id
   	requireddocuments 				: With required documents and templates, parameter : order
 
 /* ----------------------------------------------------------------------

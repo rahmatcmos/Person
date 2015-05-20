@@ -106,6 +106,7 @@ class Person extends BaseModel {
 											'currentcontact' 				=> 'CurrentContact',
 											'email'			 				=> 'Email',
 											'takenworkleave'				=> 'TakenWorkleave',
+											'checktakenworkleave'			=> 'CheckTakenWorkleave',
 											'defaultemail' 					=> 'DefaultEmail',
 											'experiences' 					=> 'Experiences',
 											'checkrelation' 				=> 'CheckRelation',
@@ -115,6 +116,7 @@ class Person extends BaseModel {
 											'checkapps'	 					=> 'CheckApps',
 											'checkcreate' 					=> 'CheckCreate',
 											'checkrelative' 				=> 'CheckRelative',
+											'checkworkleave' 				=> 'CheckWorkleave',
 											'groupcontacts' 				=> 'GroupContacts',
 											'charttag' 						=> 'ChartTag', 
 											'branchname' 					=> 'BranchName', 
@@ -122,6 +124,7 @@ class Person extends BaseModel {
 											'displayupdatedfinger'			=> 'DisplayUpdatedFinger',
 											'quotas'						=> 'Quotas',
 											'minusquotas'					=> 'MinusQuotas',
+											'workleaveid'					=> 'WorkleaveID',
 											'requireddocuments'	 			=> 'RequiredDocuments',
 										];
 

@@ -36,6 +36,11 @@ trait HasPersonWorkleavesTrait {
 		return $query->whereHas('personworkleaves', function($q)use($variable){$q;});
 	}
 
+	public function ScopeWorkleaveID($query, $variable)
+	{
+		return $query->whereHas('personworkleaves', function($q)use($variable){$q->workleaveid($variable);});
+	}
+
 	public function ScopeQuotas($query, $variable)
 	{
 		return $query->CheckWork(true)
