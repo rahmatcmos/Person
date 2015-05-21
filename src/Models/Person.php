@@ -89,7 +89,7 @@ class Person extends BaseModel {
 											'prefix_title' 					=> 'max:255',
 											'suffix_title' 					=> 'max:255',
 											'place_of_birth' 				=> 'required|max:255',
-											'date_of_birth' 				=> 'required|date_format:"Y-m-d"',
+											'date_of_birth' 				=> 'required|date_format:"Y-m-d"|before:tomorrow',
 											'gender' 						=> 'required|in:female,male',
 											'password'						=> 'max:255',
 										];

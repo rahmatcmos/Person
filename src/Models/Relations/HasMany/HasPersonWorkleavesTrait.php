@@ -27,7 +27,7 @@ trait HasPersonWorkleavesTrait {
 	{
 		if(is_array($variable))
 		{
-			return $query->whereHas('personworkleaves', function($q)use($variable){$q->ondate($variable);});
+			return $query->whereHas('personworkleaves', function($q)use($variable){$q->OnDate($variable);});
 		}
 		if($variable==false)
 		{
