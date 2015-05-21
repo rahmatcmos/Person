@@ -189,12 +189,7 @@ class PersonController extends Controller {
 			{
 				foreach ($attributes['contacts'][$key0] as $key => $value) 
 				{
-					$contact['item']			= $value['item'];
-					$contact['value']			= $value['value'];
-					if($key==count($attributes['contacts'][$key0])-1)
-					{
-						$contact['is_default']	= true;
-					}
+					$contact					= $value;
 					
 					if(isset($value['id']) && $value['id']!='' && !is_null($value['id']))
 					{
