@@ -69,6 +69,11 @@ trait HasWorksTrait {
 		return $query->with(['works.applications']);
 	}
 
+	public function scopeOrganisationID($query, $variable)
+	{
+		return $query->whereHas('works.branch.organisation', function($q)use($variable){$q->where('id', $variable);});
+	}
+
 	public function scopeBranchName($query, $variable)
 	{
 		return $query->whereHas('works.branch', function($q)use($variable){$q->where('name', 'like', '%'.$variable.'%');});
