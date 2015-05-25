@@ -35,12 +35,12 @@ trait HasSchedulesTrait {
 
 	public function ScopeTakenWorkleave($query, $variable)
 	{
-		return $query->with(['takenworkleaves' => function($q)use($variable){$q->status($variable['status'])->ondate($variable['on'])->affectsalary(true);}]);
+		return $query->with(['takenworkleaves' => function($q)use($variable){$q->ondate($variable['on'])->affectsalary(true);}]);
 	}
 
 	public function ScopeCheckTakenWorkleave($query, $variable)
 	{
-		return $query->whereHas('takenworkleaves', function($q)use($variable){$q->status($variable['status'])->ondate($variable['on'])->affectsalary(true);});
+		return $query->whereHas('takenworkleaves', function($q)use($variable){$q->ondate($variable['on'])->affectsalary(true);});
 	}
 
 	public function ScopeFullSchedule($query, $variable)
