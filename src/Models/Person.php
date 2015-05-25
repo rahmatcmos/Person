@@ -121,6 +121,7 @@ class Person extends BaseModel {
 											'charttag' 						=> 'ChartTag', 
 											'branchname' 					=> 'BranchName', 
 											'branchid' 						=> 'BranchID', 
+											'chartid' 						=> 'ChartID', 
 											'organisationid' 				=> 'OrganisationID', 
 											'relativeorganisationid' 		=> 'RelativeOrganisationID', 
 											'fullschedule' 					=> 'FullSchedule', 
