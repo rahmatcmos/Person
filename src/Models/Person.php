@@ -120,6 +120,7 @@ class Person extends BaseModel {
 											'groupcontacts' 				=> 'GroupContacts',
 											'charttag' 						=> 'ChartTag', 
 											'branchname' 					=> 'BranchName', 
+											'branchid' 						=> 'BranchID', 
 											'organisationid' 				=> 'OrganisationID', 
 											'relativeorganisationid' 		=> 'RelativeOrganisationID', 
 											'fullschedule' 					=> 'FullSchedule', 

@@ -79,6 +79,11 @@ trait HasWorksTrait {
 		return $query->whereHas('works.branch', function($q)use($variable){$q->where('name', 'like', '%'.$variable.'%');});
 	}
 
+	public function scopeBranchID($query, $variable)
+	{
+		return $query->whereHas('works.branch', function($q)use($variable){$q->where('id', $variable);});
+	}
+
 	public function scopeChartTag($query, $variable)
 	{
 		return $query->WhereHas('works', function($q)use($variable){$q->where('tag', 'like', '%'.$variable.'%');});

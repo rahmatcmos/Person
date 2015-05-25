@@ -27,10 +27,8 @@ class PersonController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index($page = 1, $search = null, $sort = null)
+	public function index($page = 1, $search = null, $sort = null, $per_page = 12)
 	{
-		$per_page 								= 12;
-	
 		$contents 								= $this->dispatch(new Getting(new Person, $search,  $sort,(int)$page, $per_page));
 
 		return $contents;
