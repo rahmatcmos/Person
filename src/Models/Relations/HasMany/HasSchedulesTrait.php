@@ -77,21 +77,21 @@ trait HasSchedulesTrait {
 					->leftJoin('schedules', 'calendars.id', '=', 'schedules.calendar_id')
 					->whereRaw('NOT EXISTS (SELECT * FROM hr_logs WHERE hr_logs.on = "'.$variable.'" && hr_logs.person_id = hr_persons.id)')
                     ->whereNull('works.end')
-                    // ->where('person_schedules.is_affect_salary', false)
+                    // ->where('person_schedules.is_affect_workleave', false)
                     ->groupBy('persons.id')
 					;
 	}
 
 	public function ScopeMinusQuotas($query, $variable)
 	{
-		return $query->selectRaw('sum(is_affect_salary) as minus_quota')
+		return $query->selectRaw('sum(is_affect_workleave) as minus_quota')
 					->selectRaw('status')
 					->selectRaw('person_id')
 					->join('person_schedules', 'persons.id', '=', 'person_schedules.person_id')
 					->whereIn('persons.id', $variable['ids'])
 					->where('person_schedules.on', '>=', date('Y-m-d',strtotime($variable['ondate'][0])))
 					->where('person_schedules.on', '<=', date('Y-m-d',strtotime($variable['ondate'][1])))
-					->where('is_affect_salary', true)
+					->where('is_affect_workleave', true)
 					->groupBy('status')
 					->groupBy('persons.id');
 	}
