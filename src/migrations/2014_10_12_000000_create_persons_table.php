@@ -15,6 +15,8 @@ class CreatePersonsTable extends Migration {
 		Schema::create('persons', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('organisation_id')->unsigned()->index();
+			$table->string('uniqid', 255);
 			$table->string('name', 255);
 			$table->string('prefix_title', 255);
 			$table->string('suffix_title', 255);
@@ -26,8 +28,8 @@ class CreatePersonsTable extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 
-			$table->index(['name', 'deleted_at']);
-			$table->index(['gender']);
+			$table->index(['deleted_at', 'organisation_id', 'name']);
+			$table->index(['deleted_at', 'organisation_id', 'uniqid']);
 		});
 	}
 

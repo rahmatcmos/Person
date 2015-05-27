@@ -48,7 +48,7 @@ class PersonController extends Controller {
 
 		DB::beginTransaction();
 		
-		$content 								= $this->dispatch(new Saving(new Person, $attributes['person'], $id));
+		$content 								= $this->dispatch(new Saving(new Person, $attributes['person'], $id, new Organisation, $attributes['organisation']['id']));
 
 		$is_success 							= json_decode($content);
 		if(!$is_success->meta->success)

@@ -14,7 +14,6 @@ class CreateRelativesTable extends Migration {
 	{
 		Schema::create('relatives', function(Blueprint $table) {
 			$table->increments('id');
-			$table->integer('organisation_id')->unsigned()->index();
 			$table->integer('person_id')->unsigned()->index();
 			$table->integer('relative_id')->unsigned()->index();
 			$table->enum('relationship', ['spouse', 'parent', 'child', 'partner']);

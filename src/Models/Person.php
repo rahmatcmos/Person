@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /* ----------------------------------------------------------------------
  * Document Model:
  * 	ID 								: Auto Increment, Integer, PK
+ * 	organisation id 	 			: Required, Foreign key Organisation, integer
+ * 	uniqid 	 						: Varchar, 255, Required
  * 	name 	 						: Varchar, 255, Required
  * 	prefix_title 					: Varchar, 255, Required
  * 	suffix_title 					: Varchar, 255, Required
@@ -66,12 +68,14 @@ class Person extends BaseModel {
 	use \ThunderID\Person\Models\Relations\HasMany\HasPersonWorkleavesTrait;
 	use \ThunderID\Person\Models\Relations\HasMany\HasWidgetsTrait;
 	use \ThunderID\Person\Models\Relations\HasOne\HasFingerTrait;
+	use \ThunderID\Person\Models\Relations\BelongsTo\HasOrganisationTrait;
 
 	public 		$timestamps 		= 	true;
 
 	protected 	$table 				= 	'persons';
 
 	protected 	$fillable			= 	[
+											'uniqid' 						,
 											'name' 							,
 											'prefix_title' 					,
 											'suffix_title' 					,
@@ -85,6 +89,7 @@ class Person extends BaseModel {
 	protected	$dates 				= 	['created_at', 'updated_at', 'deleted_at'];
 
 	protected 	$rules				= 	[
+											'uniqid' 						=> 'required|max:255',
 											'name' 							=> 'required|max:255',
 											'prefix_title' 					=> 'max:255',
 											'suffix_title' 					=> 'max:255',
@@ -96,6 +101,7 @@ class Person extends BaseModel {
 
 	public $searchable 				= 	[
 											'id' 							=> 'ID', 
+											'organisationid' 				=> 'OrganisationID', 
 											'fullname' 						=> 'FullName', 
 											'prefixtitle' 					=> 'PrefixTitle', 
 											'suffixtitle' 					=> 'SuffixTitle', 
@@ -122,8 +128,6 @@ class Person extends BaseModel {
 											'branchname' 					=> 'BranchName', 
 											'branchid' 						=> 'BranchID', 
 											'chartid' 						=> 'ChartID', 
-											'organisationid' 				=> 'OrganisationID', 
-											'relativeorganisationid' 		=> 'RelativeOrganisationID', 
 											'fullschedule' 					=> 'FullSchedule', 
 											'displayupdatedfinger'			=> 'DisplayUpdatedFinger',
 											'quotas'						=> 'Quotas',
@@ -217,6 +221,11 @@ class Person extends BaseModel {
 		return $query->where('persons.id', $variable);
 	}
 
+	public function scopeOrganisationID($query, $variable)
+	{
+		return $query->where('organisation_id', $variable);
+	}
+	
 	public function scopeFullName($query, $variable)
 	{
 		return $query->where('name', 'like' ,'%'.$variable.'%');
