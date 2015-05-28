@@ -136,11 +136,11 @@ class PersonController extends Controller {
 			{
 				if(isset($value['id']))
 				{
-					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, $value['id'], new Person, $is_success->data->id, ['relationship' => $value['relationship'], 'organisation_id' => $value['organisation_id']]));
+					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, $value['id'], new Person, $is_success->data->id, ['relationship' => $value['relationship']]));
 				}
 				else
 				{
-					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, null, new Person, $is_success->data->id, ['relationship' => $value['relationship'], 'organisation_id' => $value['organisation_id']]));
+					$saved_relative 		= $this->dispatch(new Saving(new Person, $value, null, new Person, $is_success->data->id, ['relationship' => $value['relationship']]));
 				}
 
 				$is_success_2 				= json_decode($saved_relative);

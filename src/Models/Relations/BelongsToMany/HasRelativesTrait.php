@@ -25,7 +25,7 @@ trait HasRelativesTrait {
 	public function Person()
 	{
 		return $this->belongsToMany('ThunderID\Person\Models\Person', 'relatives', 'relative_id', 'person_id')
-				->withPivot('relationship', 'organisation_id');
+				->withPivot('relationship');
 	}
 
 	public function scopeCheckRelation($query, $variable)
