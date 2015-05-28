@@ -6,6 +6,7 @@ use \ThunderID\Person\Models\Relative;
 use \ThunderID\Doclate\Models\PersonDocument;
 use \ThunderID\Doclate\Models\DocumentDetail;
 use \ThunderID\Work\Models\Work;
+use \ThunderID\Organisation\Models\Organisation;
 use \ThunderID\Schedule\Models\PersonSchedule;
 use \ThunderID\Contact\Models\Contact;
 use \ThunderID\Commoquent\Getting;
