@@ -58,7 +58,7 @@ use Str, Validator, DateTime, Exception;
 
 class Person extends BaseModel {
 
-	use SoftDeletes;
+	//use SoftDeletes;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasRelativesTrait;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasDocumentsTrait;
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasCalendarsTrait;
