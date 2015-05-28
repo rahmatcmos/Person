@@ -51,4 +51,23 @@ class WorkController extends Controller {
 		
 		return $contents;
 	}
+
+	public function delete($person_id, $id)
+	{
+		$content 								= $this->dispatch(new Getting(new Work,['personid' => $person_id, 'ID' => $id], ['created_at' => 'asc'] ,1, 1));
+		$result 								= json_decode($content);
+		
+		if($result->meta->success && strtolower($result->data->status)!='admin')
+		{
+			$content 							= $this->dispatch(new Deleting(new Work, $id));
+		}
+		elseif($result->meta->success)
+		{
+			$works 							= json_decode(json_encode($result), true);
+			$works['meta']['success'] 			=  	false;
+			$works['meta']['errors'] 			= 'Tidak dapat menghapus admin.';
+			$content 						= json_encode($works);
+		}
+		return $content;
+	}
 }
