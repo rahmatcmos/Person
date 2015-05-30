@@ -28,6 +28,18 @@ trait HasSchedulesTrait {
 		return $query->whereHas('schedules' ,function($q)use($variable){$q->ondate($variable['on']);});
 	}
 
+	public function ScopeMaxEndSchedule($query, $variable)
+	{
+		return $query->whereHas('schedules' ,function($q)use($variable){$q->ondate($variable['on']);})
+					->with(['schedules' => function($q)use($variable){$q->ondate($variable['on'])->orderBy('end', 'desc');}]);
+	}
+
+	public function ScopeMinStartSchedule($query, $variable)
+	{
+		return $query->whereHas('schedules' ,function($q)use($variable){$q->ondate($variable['on']);})
+					->with(['schedules' => function($q)use($variable){$q->ondate($variable['on'])->orderBy('start', 'asc');}]);
+	}
+
 	public function TakenWorkleaves()
 	{
 		return $this->hasMany('ThunderID\Schedule\Models\PersonSchedule');
