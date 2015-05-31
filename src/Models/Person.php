@@ -1,6 +1,7 @@
 <?php namespace ThunderID\Person\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 /* ----------------------------------------------------------------------
  * Document Model:
@@ -65,6 +66,7 @@ class Person extends BaseModel {
 	use \ThunderID\Person\Models\Relations\BelongsToMany\HasWorksTrait;
 	use \ThunderID\Person\Models\Relations\MorphMany\HasContactsTrait;
 	use \ThunderID\Person\Models\Relations\HasMany\HasSchedulesTrait;
+	use \ThunderID\Person\Models\Relations\HasMany\HasProcessLogsTrait;
 	use \ThunderID\Person\Models\Relations\HasMany\HasPersonWorkleavesTrait;
 	use \ThunderID\Person\Models\Relations\HasMany\HasWidgetsTrait;
 	use \ThunderID\Person\Models\Relations\HasOne\HasFingerTrait;
@@ -134,11 +136,12 @@ class Person extends BaseModel {
 											'minusquotas'					=> 'MinusQuotas',
 											'workleaveid'					=> 'WorkleaveID',
 											'requireddocuments'	 			=> 'RequiredDocuments',
+											'globalattendance'	 			=> 'GlobalAttendance',
 										];
 
 	public $sortable 				= 	['name', 'prefix_title', 'suffix_title', 'date_of_birth', 'created_at', 'persons.created_at', 'persons.id'];
 	
-	protected $appends				= 	['has_relatives', 'has_works', 'has_contacts'];
+	protected $appends				= 	['has_relatives', 'has_works', 'has_contacts', 'log_notes'];
 
 	/* ---------------------------------------------------------------------------- CONSTRUCT ----------------------------------------------------------------------------*/
 	/**
@@ -212,6 +215,37 @@ class Person extends BaseModel {
 		return false;
 	}
 	
+	public function getLogNotesAttribute($value)
+	{
+		if(isset($this['attributes']['margin_start']))
+		{
+			$notes 			= [];
+			if($this->margin_start < 0)
+			{
+				$notes[] = 'late';
+			}
+			elseif($this->margin_start >= 0)
+			{
+				$notes[] = 'ontime';
+			}
+
+			if($this->margin_end < 0)
+			{
+				$notes[] = 'earlier';
+			}
+			elseif($this->margin_end > 3600)
+			{
+				$notes[] = 'overtime';
+			}
+			elseif($this->margin_end <= 3600 && $this->margin_end >= 0)
+			{
+				$notes[] = 'ontime';
+			}
+
+			return $notes;
+		}
+		return null;
+	}
 	/* ---------------------------------------------------------------------------- FUNCTIONS -------------------------------------------------------------------------------*/
 	
 	/* ---------------------------------------------------------------------------- SCOPE -------------------------------------------------------------------------------*/
@@ -223,7 +257,7 @@ class Person extends BaseModel {
 
 	public function scopeOrganisationID($query, $variable)
 	{
-		return $query->where('organisation_id', $variable);
+		return $query->where('persons.organisation_id', $variable);
 	}
 	
 	public function scopeFullName($query, $variable)
@@ -264,6 +298,77 @@ class Person extends BaseModel {
 	public function scopeGender($query, $variable)
 	{
 		return $query->where('gender', $variable);
+	}
+
+	public function scopeGlobalAttendance($query, $variable)
+	{
+		$query =  $query->selectraw('hr_persons.*')
+					->currentwork($variable['organisationid'])
+					// ->globalattendancereport($variable);
+					->selectraw('avg(margin_start) as margin_start')
+					->selectraw('avg(margin_end) as margin_end')
+					->selectraw('avg(TIME_TO_SEC(start)) as avg_start')
+					->selectraw('avg(TIME_TO_SEC(end)) as avg_end')
+					->selectraw('avg(TIME_TO_SEC(fp_start)) as avg_fp_start')
+					->selectraw('avg(TIME_TO_SEC(fp_end)) as avg_fp_end')
+					->selectraw('avg(total_idle) as avg_idle')
+					->selectraw('avg(total_sleep) as avg_sleep')
+					->selectraw('avg(total_active) as avg_active')
+					->selectraw('sum(TIME_TO_SEC(start)) as start')
+					->selectraw('sum(TIME_TO_SEC(end)) as end')
+					->selectraw('sum(TIME_TO_SEC(fp_start)) as fp_start')
+					->selectraw('sum(TIME_TO_SEC(fp_end)) as fp_end')
+					->selectraw('sum(total_idle) as total_idle')
+					->selectraw('sum(total_sleep) as total_sleep')
+					->selectraw('sum(total_active) as total_active')
+					->leftjoin('process_logs', 'process_logs.person_id', '=', 'persons.id');
+		
+		if(is_array($variable['on']))
+		{
+			if(!is_null($variable['on'][1]))
+			{
+				$query =  $query->where('on', '<=', date('Y-m-d', strtotime($variable['on'][1])))
+							 ->where('on', '>=', date('Y-m-d', strtotime($variable['on'][0])));
+			}
+			elseif(!is_null($variable['on'][0]))
+			{
+				$query =  $query->where('on', '>=', date('Y-m-d', strtotime($variable['on'][0])));
+			}
+			else
+			{
+				$query =  $query->where('on', '>=', date('Y-m-d'));
+			}
+		}
+
+		if(isset($variable['case']))
+		{
+			switch ($variable['case']) 
+			{
+				case 'late':
+					$query = $query->where('margin_start', '<', 0);
+					break;
+				case 'ontime':
+					$query = $query->where('margin_start', '>=', 0);
+					break;
+				
+				case 'earlier':
+					$query = $query->where('margin_end', '<', 0);
+					break;
+				case 'margin_end':
+					$query = $query->where('margin_start', '>', 0);
+					break;
+				default:
+					$query;
+					break;
+			}
+		}
+
+		if(isset($variable['sort']))
+		{
+			$query = $query->orderBy($variable['sort'][0], $variable['sort'][1]);
+		}
+		return $query->groupBy('persons.id')
+					;
 	}
 
 

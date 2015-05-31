@@ -45,7 +45,7 @@ class AuthController extends Controller {
 	 */
 	public function person($id = null)
 	{
-		$content 								= $this->dispatch(new Getting(new Person, ['id' => $id, 'CurrentWork' => '', 'defaultemail' => true], ['created_at' => 'asc'],1, 1));
+		$content 								= $this->dispatch(new Getting(new Person, ['id' => $id, 'CurrentWork' => null, 'defaultemail' => true], ['created_at' => 'asc'],1, 1));
 
 		return $content;
 	}

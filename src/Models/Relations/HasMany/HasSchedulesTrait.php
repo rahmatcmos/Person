@@ -96,14 +96,14 @@ trait HasSchedulesTrait {
 
 	public function ScopeMinusQuotas($query, $variable)
 	{
-		return $query->selectRaw('sum(is_affect_workleave) as minus_quota')
+		return $query->selectRaw('count(start) as minus_quota')
 					->selectRaw('status')
 					->selectRaw('person_id')
 					->join('person_schedules', 'persons.id', '=', 'person_schedules.person_id')
 					->whereIn('persons.id', $variable['ids'])
 					->where('person_schedules.on', '>=', date('Y-m-d',strtotime($variable['ondate'][0])))
 					->where('person_schedules.on', '<=', date('Y-m-d',strtotime($variable['ondate'][1])))
-					->where('is_affect_workleave', true)
+					->where('status', 'absence_workleave')
 					->groupBy('status')
 					->groupBy('persons.id');
 	}
