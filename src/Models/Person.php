@@ -355,7 +355,7 @@ class Person extends BaseModel {
 				case 'earlier':
 					$query = $query->where('margin_end', '<', 0);
 					break;
-				case 'margin_end':
+				case 'overtime':
 					$query = $query->where('margin_start', '>', 0);
 					break;
 				default:
