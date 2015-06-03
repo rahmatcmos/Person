@@ -48,7 +48,6 @@ class PersonController extends Controller {
 		}
 
 		DB::beginTransaction();
-		
 		$content 								= $this->dispatch(new Saving(new Person, $attributes['person'], $id, new Organisation, $attributes['organisation']['id']));
 
 		$is_success 							= json_decode($content);
@@ -149,7 +148,16 @@ class PersonController extends Controller {
 					DB::rollback();
 					return $saved_relative;
 				}
-				
+
+				$saved_relative_2 			= $this->dispatch(new Saving(new Person, [], $is_success_2->data->id, new Organisation, $attributes['organisation']['id']));
+			
+				$is_success_2b 				= json_decode($saved_relative_2);
+				if(!$is_success_2b->meta->success)
+				{
+					DB::rollback();
+					return $saved_relative_2;
+				}		
+			
 				if(isset($value['contacts']))
 				{
 					foreach ($value['contacts'] as $key2 => $value2) 
