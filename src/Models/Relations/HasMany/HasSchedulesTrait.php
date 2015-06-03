@@ -97,14 +97,14 @@ trait HasSchedulesTrait {
 	public function ScopeMinusQuotas($query, $variable)
 	{
 		return $query->selectRaw('count(start) as minus_quota')
-					->selectRaw('status')
+					->selectRaw('hr_person_schedules.name as name')
 					->selectRaw('person_id')
 					->join('person_schedules', 'persons.id', '=', 'person_schedules.person_id')
 					->whereIn('persons.id', $variable['ids'])
 					->where('person_schedules.on', '>=', date('Y-m-d',strtotime($variable['ondate'][0])))
 					->where('person_schedules.on', '<=', date('Y-m-d',strtotime($variable['ondate'][1])))
 					->where('status', 'absence_workleave')
-					->groupBy('status')
+					->groupBy('person_schedules.name')
 					->groupBy('persons.id');
 	}
 }
