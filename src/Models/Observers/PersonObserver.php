@@ -12,7 +12,7 @@ class PersonObserver
 {
 	public function saving($model)
 	{
-		$validator 				= Validator::make($model['attributes'], $model['rules']);
+		$validator 				= Validator::make($model['attributes'], $model['rules'], ['uniqid.required' => 'ID tidak boleh kosong', 'uniqid.max' => 'Maksimal Panjang ID : 255 Karakter']);
 
 		if ($validator->passes())
 		{

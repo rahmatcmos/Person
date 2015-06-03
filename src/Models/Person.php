@@ -124,6 +124,7 @@ class Person extends BaseModel {
 											'checkapps'	 					=> 'CheckApps',
 											'checkcreate' 					=> 'CheckCreate',
 											'checkrelative' 				=> 'CheckRelative',
+											'checkrelationof' 				=> 'CheckRelationOf',
 											'checkworkleave' 				=> 'CheckWorkleave',
 											'groupcontacts' 				=> 'GroupContacts',
 											'charttag' 						=> 'ChartTag', 
