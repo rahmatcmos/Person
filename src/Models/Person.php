@@ -306,6 +306,7 @@ class Person extends BaseModel {
 		$query =  $query->selectraw('hr_persons.*')
 					->currentwork($variable['organisationid'])
 					// ->globalattendancereport($variable);
+					->selectraw('count(person_id) as total_attendance')
 					->selectraw('avg(margin_start) as margin_start')
 					->selectraw('avg(margin_end) as margin_end')
 					->selectraw('avg(TIME_TO_SEC(start)) as avg_start')
